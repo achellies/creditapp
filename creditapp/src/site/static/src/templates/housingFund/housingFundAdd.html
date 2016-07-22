@@ -1,0 +1,36 @@
+<div>
+    <div class="ui-row ui-border-b" style="height:1em;"></div>
+    <section class="ui-row padding-10 ui-border-b" ng-click="howToRegister()">
+        <div class="ui-flex" style="padding-right:1em;">
+            <div class="ui-flex ui-flex-pack-start">如何获取公积金账户用户名和密码</div>
+            <div class="ui-flex-pack-end">></div>
+        </div>
+    </section>
+    <div class="ui-row ui-border-b" style="height:1em;"></div>
+    <section class="ui-row padding-10 ui-border-b">
+        <div class="ui-col ui-col-33">所在地</div>
+        <select class="ui-col ui-col-67" ng-model="citySelected" ng-options="city.cityName for city in cityModel">
+            <option value="">选择城市</option>
+        </select>
+    </section>
+    <div class="ui-row ui-border-b" style="height:1em;"></div>
+    <section class="ui-row padding-10 ui-border-tb">
+        <label for="housingFundID" class="ui-col ui-col-33">用户名</label>
+        <input class="ui-col ui-col-67" id="housingFundID" type="text" ng-model="housingFundID" placeholder="公积金账户名">
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <label for="housingFundPWD" class="ui-col ui-col-33">密码</label>
+        <input class="ui-col ui-col-67" id="housingFundPWD" type="text" ng-model="housingFundPWD" placeholder="公积金密码">
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <label for="captcha" class="ui-col ui-col-33">验证码</label>
+        <input class="ui-col ui-col-67" id="captcha" type="text" ng-model="captcha" placeholder="验证码">
+    </section>
+    <div class="ui-row padding-10">
+        <label class="ui-checkbox-s">
+            <input id="agreement" type="checkbox" name="agreement" ng-model="checked">
+        </label>
+        <label for="agreement">我已阅读并同意</label><a href="javascript:void(0);">《XXX查询协议》</a>
+    </div>
+    <button class="ui-row ui-btn-lg ui-btn-primary" ng-disabled="validate()" ng-click="submitAdd()">立即添加</button>
+</div>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanda.creditapp.msg.dao.MsgTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.wanda.creditapp.msg.domain.MsgTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="template_name" property="templateName" jdbcType="VARCHAR" />
+    <result column="msg_title" property="msgTitle" jdbcType="VARCHAR" />
+    <result column="msg_type" property="msgType" jdbcType="INTEGER" />
+    <result column="msg_template" property="msgTemplate" jdbcType="VARCHAR" />
+    <result column="data_status" property="dataStatus" jdbcType="INTEGER" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from app_msg_templates
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wanda.creditapp.msg.domain.MsgTemplate" >
+    insert into app_msg_templates (id, template_name, msg_title, 
+      msg_type, msg_template, data_status, 
+      data_version, created_at, updated_at, 
+      create_user, update_user)
+    values (#{id,jdbcType=INTEGER}, #{templateName,jdbcType=VARCHAR}, #{msgTitle,jdbcType=VARCHAR}, 
+      #{msgType,jdbcType=INTEGER}, #{msgTemplate,jdbcType=VARCHAR}, #{dataStatus,jdbcType=INTEGER}, 
+      #{dataVersion,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.msg.domain.MsgTemplate" >
+    update app_msg_templates
+    set template_name = #{templateName,jdbcType=VARCHAR},
+      msg_title = #{msgTitle,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=INTEGER},
+      msg_template = #{msgTemplate,jdbcType=VARCHAR},
+      data_status = #{dataStatus,jdbcType=INTEGER},
+      data_version = #{dataVersion,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, template_name, msg_title, msg_type, msg_template, data_status, data_version, 
+    created_at, updated_at, create_user, update_user
+    from app_msg_templates
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, template_name, msg_title, msg_type, msg_template, data_status, data_version, 
+    created_at, updated_at, create_user, update_user
+    from app_msg_templates
+  </select>
+</mapper>

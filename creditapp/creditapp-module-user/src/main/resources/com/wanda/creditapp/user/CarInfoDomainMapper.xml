@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanda.creditapp.user.dao.CarInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.wanda.creditapp.user.domain.CarInfoDomain" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="card_no" property="cardNo" jdbcType="VARCHAR" />
+    <result column="license_no" property="licenseNo" jdbcType="VARCHAR" />
+    <result column="car_type" property="carType" jdbcType="INTEGER" />
+    <result column="car_code" property="carCode" jdbcType="VARCHAR" />
+    <result column="vin_17" property="vin_17" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="car_detail" property="carDetail" jdbcType="VARCHAR" />
+    <result column="car_status" property="carStatus" jdbcType="INTEGER" />
+    <result column="data_status" property="dataStatus" jdbcType="INTEGER" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <insert id="saveCarInfo" parameterType="com.wanda.creditapp.user.domain.CarInfoDomain" >
+    insert into app_car_info (id, name,card_no,license_no,car_type,car_code,vin_17,register_time,car_detail,
+  								car_status,data_status,data_version,created_at, updated_at,create_user,update_user)
+    values 
+  	  (#{id,jdbcType=INTEGER}, 
+  	  #{name,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR},
+  	  #{licenseNo,jdbcType=VARCHAR},#{carType,jdbcType=INTEGER},#{carCode,jdbcType=VARCHAR},
+  	  #{vin_17,jdbcType=VARCHAR},#{registerTime,jdbcType=TIMESTAMP}, 
+  	  #{carDetail,jdbcType=VARCHAR},#{carStatus,jdbcType=INTEGER}, 
+  	  #{dataStatus,jdbcType=INTEGER},#{dataVersion,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, 
+  	  #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  
+
+  <select id="queryCarInfo" resultMap="BaseResultMap">
+	    select *
+	    from app_car_info
+	  	where   name=#{name}            and  card_no=#{cardNo}  
+	  	   and  license_no=#{licenseNo} and  car_type=#{carType} 
+  		<if test="vin_17 != null and vin_17 != ''">
+  			and  vin_17 =#{vin_17}
+  		</if>	
+  		<if test="car_detail != null and car_detail != ''">
+  			and car_detail = #{car_detail}
+  		</if>	
+  		<if test="register_time != null">
+  			and register_time = #{register_time}
+  		</if>	
+  		<if test="car_status != 0">
+  			and car_status = #{car_status}
+  		</if>	
+  </select>
+  
+</mapper>

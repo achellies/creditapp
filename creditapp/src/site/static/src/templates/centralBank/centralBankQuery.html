@@ -1,0 +1,28 @@
+<div>
+    <div class="ui-row ui-border-b" style="height:1em;"></div>
+    <ul class="ui-row ui-list ui-list-one ui-list-link" ng-click="howToRegister()">
+        <li class="ui-list-info ui-border-b">
+            <h4 class="ui-nowrap">如何获取账号和密码</h4>
+        </li>
+    </ul>
+    <div class="ui-row ui-border-b" style="height:1em;"></div>
+    <section class="ui-row padding-10 ui-border-tb">
+        <label for="centralBankID" class="ui-col ui-col-33">账号</label>
+        <input class="ui-col ui-col-67" id="centralBankID" type="text" ng-model="centralBankID" placeholder="央行征信网站账号">
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <label for="centralBankPWD" class="ui-col ui-col-33">密码</label>
+        <input class="ui-col ui-col-67" id="centralBankPWD" type="text" ng-model="centralBankPWD" placeholder="央行征信网站登录密码">
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <label for="captcha" class="ui-col ui-col-33">验证码</label>
+        <input class="ui-col ui-col-67" id="captcha" type="text" ng-model="captcha" placeholder="央行征信网站发送的查询验证码">
+    </section>
+    <div class="ui-row padding-10">
+        <label class="ui-checkbox-s">
+            <input id="agreement" type="checkbox" name="agreement" ng-model="checked">
+        </label>
+        <label for="agreement">我已阅读并同意</label><a href="javascript:void(0);">《XXX查询协议》</a>
+    </div>
+    <button class="ui-row ui-btn-lg ui-btn-primary" ng-disabled="validate()" ng-click="submitQuery()">立即查询</button>
+</div>

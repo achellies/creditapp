@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanda.creditapp.user.dao.DissentMapper">
+  <resultMap id="BaseResultMap" type="com.wanda.creditapp.user.domain.DissentDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="data_status" jdbcType="INTEGER" property="dataStatus" />
+    <result column="data_version" jdbcType="INTEGER" property="dataVersion" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="dissent_content" jdbcType="LONGVARCHAR" property="dissentContent" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_dissent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wanda.creditapp.user.domain.DissentDomain">
+    insert into app_dissent (id, user_id, record_id, 
+      data_status, data_version, created_at, 
+      updated_at, create_user, update_user, 
+      dissent_content)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{recordId,jdbcType=INTEGER}, 
+      #{dataStatus,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{dissentContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.user.domain.DissentDomain">
+    update app_dissent
+    set user_id = #{userId,jdbcType=INTEGER},
+      record_id = #{recordId,jdbcType=INTEGER},
+      data_status = #{dataStatus,jdbcType=INTEGER},
+      data_version = #{dataVersion,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      dissent_content = #{dissentContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, record_id, data_status, data_version, created_at, updated_at, 
+    create_user, update_user, dissent_content
+    from app_dissent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, record_id, data_status, data_version, created_at, updated_at, 
+    create_user, update_user, dissent_content
+    from app_dissent
+  </select>
+  
+ 
+  <!--新增异议-->
+  <insert id="saveDissent" parameterType="com.wanda.creditapp.user.domain.DissentDomain">
+     insert into app_dissent (id, user_id, record_id, 
+		      data_status, data_version, created_at, 
+		      updated_at, create_user, update_user, 
+		      dissent_content)
+     values (
+  			#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{recordId,jdbcType=INTEGER}, 
+  	        <if test="dataStatus != null and dataStatus.trim().length() != 0">
+			     #{dataStatus,jdbcType=INTEGER},
+			</if>
+			<if test="dataStatus == null or dataStatus.trim().length() == 0">
+				  1,
+			</if>
+			<if test="dataVersion != null and dataVersion.trim().length() != 0">
+				  #{dataVersion,jdbcType=INTEGER},
+			</if>
+			<if test="dataVersion == null or dataVersion.trim().length() == 0">
+				  1,
+			</if>
+  			 #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+			 #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+             #{dissentContent,jdbcType=LONGVARCHAR}
+		)
+  </insert>
+  
+  
+  <!--查询所有异议-->
+  <select id="queryAllCarDissent" resultMap="BaseResultMap">
+    select *
+    from app_dissent
+  </select>
+  
+  
+  <select id="queryCarDissentByRecordId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from app_dissent
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  
+  
+	
+ 
+  
+</mapper>

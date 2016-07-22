@@ -1,0 +1,21 @@
+.info_title_head{
+  line-height: 45px;
+  height: 45px;
+  padding-right: 20px;
+}
+.info_area{
+  background-color: #fff;
+  height: 150px;
+  padding: 10px 30px;
+  .detail_item{
+    height: 30px;
+    line-height: 30px;
+    .label_left{
+      color: #333;
+      width: 50px;
+    }
+    .label_right{
+      color: #000;
+    }
+  }
+}

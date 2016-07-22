@@ -1,0 +1,31 @@
+    .result-page {
+        img {
+            margin-top: 70px;
+            width: 100px;
+            height: 100px;
+        }
+        .result-main {
+            font-family: PingFangSC-Regular;
+            font-size: 16px;
+            color: #666666;
+            line-height: 16px;
+            text-align: center;
+            margin: 28px auto 0px auto;
+            width: 80%;
+        }
+        .result-alt {
+            width: 80%;
+            font-size: 14px;
+            color: #999999;
+            margin: 16px auto 0px auto;
+        }
+        .action-btn {
+            background: #ffffff;
+            border: 1px solid #c0c0c0;
+            border-radius: 4px;
+            margin: 80px auto 0 auto;
+            width: 140px;
+            height: 36px;
+            line-height: 36px;
+        }
+    }

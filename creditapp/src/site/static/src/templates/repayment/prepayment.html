@@ -1,0 +1,62 @@
+<section class="prepayment-page">
+    <div class="ui-form">
+        <div class="ui-form-section ui-border-t" ng-show="!repayment.isOverdue">
+            <div class="ui-form-item ui-form-item-1 ui-form-item-show ui-border-b">
+                <label for="#">还款金额</label>
+                <input type="text" value="{{repayment.repaymentAmount|number}}" readonly>
+            </div>
+        </div>
+        <div class="ui-form-section ui-border-t" ng-show="repayment.isOverdue">
+            <div class="ui-form-item ui-form-item-row-2 ui-form-item-show ui-border-b">
+                <label for="#">还款金额</label>
+                <div class="ui-form-item-row-right">
+                    <input class="ui-input-border" number-limit number-max="{{repayment.overdueAmount}}" type="tel" ng-model="prepayPrincipalAmount" ng-change="onPrepayPrincipalAmountChange()" placeholder="请输入还款本金">元
+                    <p class="ui-form-tip">*还款金额不得大于逾期金额</p>
+                </div>
+            </div>
+        </div>
+        <div class="ui-form-section ui-border-t" ng-show="repayment.isOverdue">
+            <div class="ui-form-item ui-form-item-1 ui-form-item-show ui-border-b">
+                <label for="#">逾期金额</label>
+                <input type="text" class="ui-txt-warning" value="{{repayment.overdueAmount|number}}" readonly>
+            </div>
+        </div>
+        <div class="ui-form-section ui-border-t">
+            <div class="ui-form-item ui-form-item-1 ui-form-item-show ui-border-b" ng-show="!repayment.isOverdue">
+                <label for="#">本金</label>
+                <input type="text" value="{{repayment.principalAmount|number}}" readonly>
+            </div>
+            <div class="ui-form-item ui-form-item-1 ui-form-item-show ui-border-b">
+                <label for="#">利息</label>
+                <input type="text" value="{{repayment.interestFee|number}}" readonly>
+            </div>
+            <div class="ui-form-item ui-form-item-2 ui-form-item-show ui-border-b">
+                <label for="#">提前还款违约金</label>
+                <input type="text" value="{{repayment.penaltyFee|number}}" readonly>
+            </div>
+        </div>
+        <div class="ui-form-section ui-border-t">
+            <div class="ui-form-item ui-form-item-1 ui-form-item-show ui-border-b">
+                <label for="#">银行</label>
+                <input type="text" value="{{repayment.payBank}}" readonly>
+            </div>
+            <div class="ui-form-item ui-form-item-1 ui-form-item-show ui-border-b">
+                <label for="#">卡号</label>
+                <input type="text" value="{{repayment.bankcard}}" readonly>
+            </div>
+        </div>
+        <div class="ui-footer ui-footer-confirm ui-footer-stable ui-border-t" fix-bottom>
+            <div class="ui-row-flex">
+                <div class="ui-col-3">
+                    <div class="prepayment-total">
+                        <label>总计(元):</label><span class="ui-txt-warning">{{prepayAmount|number}}</span>
+                    </div>
+                    <div class="prepayment-tips">
+                        还款受理时间: 每日8:00-23:00
+                    </div>
+                </div>
+                <button class="ui-col-2 confirm-btn" ng-disabled="!allowSubmit" ng-click="submitPrepay()">确认还款</button>
+            </div>
+        </div>
+    </div>
+</section>

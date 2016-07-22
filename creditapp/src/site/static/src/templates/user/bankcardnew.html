@@ -1,0 +1,48 @@
+<div class="ui-container" ng-cloak>
+    <p class="hint-left row-hint">请输入借记卡信息</p>
+    <div class="ui-form ui-border-t">
+        <div class="ui-form-item ui-form-item-show ui-border-b">
+            <p>
+            <h6 ng-show='isBankcardError' class="check_phoneNo">{{bankcardErrorText}}</h6>
+            </p>
+            <label class="usr-input" for="bankcardNo">银行卡号:</label>
+            <input class="usr-input" id="bankcardNo" name="bankcardNo" type="tel" maxlength=19 ng-model="bankcardNo"
+                   ng-change="onBankcardChange()" placeholder='请输入银行卡号' required>
+        </div>
+        <div class="ui-form-item ui-form-item-show ui-border-b">
+            <p>
+                <i id="bank_info" class="ui-icon-info" data-role="button" ng-click="supportBank()"></i>
+            </p>
+            <label class="usr-input" for="issueBank">发卡行:</label>
+            <input class="usr-input" id="issueBank" name="issueBank" readonly ng-model="issueBank">
+        </div>
+    </div>
+    <p class="hint-left row-hint">银行预留手机号</p>
+    <div class="ui-form ui-border-t">
+        <div class="ui-form-item ui-form-item-show ui-border-b">
+            <p>
+            <h6 ng-show='isPhoneNoError' class="check_phoneNo">{{phoneNoErrorText}}</h6>
+            </p>
+            <label class="usr-input" for="phoneNo">手机号:</label>
+            <input class="usr-input" id="phoneNo" name="phoneNo" type="tel" maxlength="11" ng-model="phoneNo"
+                   ng-change="onPhoneNoChange()" placeholder="请输入银行预留手机号" required>
+        </div>
+        <div id="verifyContainer" class="ui-form-item ui-form-item-show ui-border-b">
+            <p>
+                <button class="verify-code ui-btn" ng-disabled='(!isPhoneNoInput||isBankcardError||verifyCodeTimeout)'
+                        ng-click='GetVerifyCode()'>
+                    {{timesout}}
+                </button>
+            </p>
+            <label class="usr-input" for="verifyCode">验证码:</label>
+            <input class="usr-input" id="verifyCode" name="verifyCode" ng-model='verifyCode' type="tel" value="" maxlength="6"
+                   placeholder="请输入验证码" ng-change='onVerifyCodeChange()' required>
+        </div>
+    </div>
+    <div class="ui-footer ui-footer-stable" fix-bottom>
+        <button id="btnSubmit" class="ui-btn-lg ui-btn-primary wd92" ng-click='submit()'  wd-tooltips="请绑定本人银行卡，绑定成功后无法修改"
+                ng-disabled="(isPhoneNoError||isBankcardError||!isBancardNoInput||!isPhoneNoInput||!isVerifyCodeInput)">
+            确定
+        </button>
+    </div>
+</div>

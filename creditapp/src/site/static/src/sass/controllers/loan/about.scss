@@ -1,0 +1,26 @@
+.loan-about {
+    height: 100%;
+    width: 100%;
+    background: #67ceff;
+    .about-block {
+        background: url(../../imgs/loan.2x.png) no-repeat 0 50px / contain;
+        width: 85%;
+        height: 100%;
+        margin: 0 auto;
+    }
+    .scan-btn {
+        background: #ffffff;
+        border-radius: 28px;
+        width: 240px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        color: #3d95eb;
+        text-align: center;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        margin-left: -120px;
+        bottom: 80px;
+    }
+}

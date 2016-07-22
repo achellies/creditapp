@@ -1,0 +1,43 @@
+<div class="ui-container" ng-cloak id='idcardScanController'>
+    <form name="idcardscan_form" novalidate ng-submit='idCardScanConfirm()'>
+        <div class="top-container ui-border-b">
+            <div class="ui-flex ui-flex-pack-center">
+                <div id="frontImageContainer" ng-click="callNative_Idcard('front')" class="photo-container photo-front ui-row-flex ui-flex-pack-center ui-flex-align-center">
+                    <img height='93' height='148' id='frontImg' ng-src='{{frontImgDataUrl}}'>
+                </div>
+                <div class="gap"></div>
+                <div id="backImageContainer" ng-click="callNative_Idcard('back')" class="photo-container photo-back ui-row-flex ui-flex-pack-center ui-flex-align-center">
+                    <img height='93' height='148' id='backImg' ng-src='{{backImgDataUrl}}'>
+                </div>
+            </div>
+            <p class="hint">请拍摄身份证正反两面,系统自动识别</p>
+        </div>
+        <p class="hint-left" style="margin: 10px auto;">请核对以下信息，若姓名有误请手动更正</p>
+        <div class="ui-form ui-border-t">
+            <div class="ui-form-item ui-form-item-show ui-border-b">
+                <p>
+                    <h6 ng-show='idcardscan_form.realName.$dirty&&idcardscan_form.realName.$invalid' class="form_check">
+                仅中文</h6>
+                </p>
+                <label class="form-title" for="realName">姓名:</label>
+                <input id="realName" name="realName" type="text" required ng-model="realName" placeholder="请点击上方按钮拍照识别" ng-pattern="/^[\u4e00-\u9fa5]{0,}$/" placeholder="自动识别有效期">
+            </div>
+            <div class="ui-form-item ui-form-item-show ui-border-b">
+                <label class="form-title" for="idCard">身份证号:</label>
+                <input id="idCard" name="idCardNo" type="text" required readonly ng-model="idCardNo" placeholder="请点击上方按钮拍照识别" ng-pattern="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/">
+            </div>
+            <div class="ui-form-item ui-form-item-show ui-border-b">
+                <label class="form-title" for="validDate">有效期限:</label>
+                <input id="validDate" name="validDate" type="text" required readonly ng-model="validDate" placeholder="请点击上方按钮拍照识别">
+            </div>
+        </div>
+        <div class="idard-agreement">
+            <wd-agreement agree-model="isAgree" agree-preword="同意" agreements="agreement" agree-col=0 agree-url="" agree-click="AgreeClick(e)"></wd-agreement>
+        </div>
+        <div class="ui-footer ui-footer-stable" fix-bottom>
+            <button id="tooltipbutton" class="ui-btn-lg ui-btn-primary wd92" ng-click="idcard_submit()" ng-disabled="!isAgree" wd-tooltips="请绑定本人身份证，绑定成功后无法修改">
+                下一步
+            </button>
+        </div>
+    </form>
+</div>

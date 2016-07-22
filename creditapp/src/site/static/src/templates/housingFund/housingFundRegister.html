@@ -1,0 +1,11 @@
+<div>
+    <div class="ui-row padding-10 ui-border-b" ng-repeat="step in stepModel">
+        <div class="ui-col ui-col-10">
+            <div style="width: 20px;height: 20px;border-radius: 10px;background-color: #4d85cd;text-align: center;color: #ffffff;">{{$index + 1}}</div>
+        </div>
+        <div class="ui-col ui-col-90">
+            <h5 class="credit-blue-content">{{step.title}}</h5>
+            <div class="mg-top10" ng-bind-html="step.description"></div>
+        </div>
+    </div>
+</div>

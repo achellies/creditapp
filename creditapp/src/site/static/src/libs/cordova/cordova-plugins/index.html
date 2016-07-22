@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!--meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"-->
+        <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+        <style>
+            button {
+                -webkit-appearance: none;
+                height: 10%;
+            }
+        </style>
+        <script type="text/javascript">
+            function native_log(msg) {
+                alert(msg);
+                cordova.exec(
+                             function() {;},
+                             function() {;},
+                             "WDPLog", "log", [{"info":msg}]);
+            }
+            function test2() {
+                alert("md");
+                cordova.exec(onSuccess, onFailure, "wjrtsPlugin", "coolMethod", ["mmm"]);
+                
+            }
+            function test_navbar() {
+                //cordova.exec(onSuccess, onFailure, "WDPNavigationBar", "updateBar", ["left","close","right","back","test title"]);
+                cordova.exec(function(data){
+                    alert("导航 成功");
+                }, function(data){
+                    alert("导航 失败");
+                }, "WDPNavigationBar", "updateBar", [{leftTitle:"left",leftAction:"close",rightTitle:"right",rightAction:"back",navigatorTitle:"test title"}]);
+            }
+            
+            function id_card() {
+                cordova.exec(function(data){
+                    native_log("身份证正面识别 成功");
+                }, function(data){
+                    native_log("身份证正面识别 失败");
+                }, "WDPIdCard", "getIdCard", [{pictureSourceType:"camera", cardSide:"front"}]);
+            }
+            
+            function id_card_back() {
+                cordova.exec(function(data){
+                    native_log("身份证反面识别 成功:");
+                }, function(data){
+                    native_log("身份证反面识别 失败:");
+                }, "WDPIdCard", "getIdCard", [{pictureSourceType:"camera", cardSide:"back"}]);
+            }
+            
+            function page_control() {
+                cordova.exec(function(data){
+                    native_log("关闭页面 成功");
+                }, function(data){
+                    native_log("关闭页面 失败");
+                }, "WDPPageControl", "pageControl", [{action:"close"}]);
+            }
+            
+            function live() {
+                cordova.exec(function(data){
+                    native_log("人脸识别 成功:"+data);
+                }, function(data){
+                    native_log("人脸识别 失败:"+data);
+                }, "WDPLive", "checkLive", [{}]);
+            }
+            
+            function bank_card_ocr() {
+                cordova.exec(function(data){
+                    native_log("银行卡识别 成功:"+data);
+                }, function(data){
+                    native_log("银行卡识别 失败:"+data);
+                }, "WDPBankCardOCR", "getBankCardNumber", [{}]);
+            }
+            
+            
+            function gps() {
+                cordova.exec(function(data){
+                    //alert("GPS 成功:"+data);
+                    native_log("GPS 成功:"+data);
+                }, function(data){
+                    //alert("GPS 失败:"+data);
+                    native_log("GPS 失败:"+data);
+                }, "WDPGPS", "getGPS", [{}]);
+            }
+            
+            
+            function camera() {
+                var options = {
+                    quality: 75,
+                    destinationType: Camera.DestinationType.DATA_URL,
+                    sourceType: Camera.PictureSourceType.CAMERA,
+                    allowEdit: true,
+                    encodingType: Camera.EncodingType.JPEG,
+                    targetWidth: 300,
+                    targetHeight: 300,
+                    popoverOptions: CameraPopoverOptions,
+                    saveToPhotoAlbum: false
+                };
+                
+                var ops = {};
+                  
+                navigator.camera.getPicture(function(data){
+                    //$('.media-object', this.$el).attr('src', "data:image/jpeg;base64,"+data);
+                    native_log("摄像头 成功:"+data);
+                }, function(data){
+                    native_log("摄像头 失败:");
+                }, xx);
+            }
+            
+            
+            function open_browser() {
+                cordova.exec(function(data){
+                    native_log("打开浏览器 成功:"+data);
+                }, function(data){
+                    native_log("打开浏览器 失败:"+data);
+                }, "WDPOpenOutside", "openOutSide", [{url:"www.baidu.com"}]);
+            }
+            
+            
+            function test_navbar2() {
+                cordova.exec(function(data){
+                    //alert("导航 成功");
+                }, function(data){
+                    //alert("导航 失败");
+                }, "WDPNavigationBar", "updateBar",
+                [{leftTitle:"left", leftAction:"weburl", leftUrl:"http://www.baidu.com",
+                  rightTitle:"right", rightAction:"url", rightUrl:"index2.html",
+                  navigatorTitle:"< baidu | index2 > "}]);
+            }
+            
+            
+            
+            function test_navbar_close() {
+                cordova.exec(function(data){
+                    //alert("导航 成功");
+                }, function(data){
+                    //alert("导航 失败");
+                }, "WDPNavigationBar", "updateBar",
+                [{leftTitle:"close", leftAction:"close", leftUrl:"",
+                  rightTitle:"close", rightAction:"close", rightUrl:"",
+                  navigatorTitle:"< close | close > "}]);
+            }
+            
+            function test_navbar_back() {
+                cordova.exec(function(data){
+                    //alert("导航 成功");
+                }, function(data){
+                    //alert("导航 失败");
+                }, "WDPNavigationBar", "updateBar",
+                [{leftTitle:"<", leftAction:"back", leftUrl:"",
+                  rightTitle:"back", rightAction:"back", rightUrl:"",
+                  navigatorTitle:"< back | back > "}]);
+            }
+            function test_navbar_reload() {
+                cordova.exec(function(data){
+                    //alert("导航 成功");
+                }, function(data){
+                    //alert("导航 失败");
+                }, "WDPNavigationBar", "updateBar",
+                [{leftTitle:"reload", leftAction:"reload", leftUrl:"",
+                  rightTitle:"reload", rightAction:"reload", rightUrl:"",
+                  navigatorTitle:"< reload | reload > "}]);
+            }
+            function test_navbar_hide() {
+                cordova.exec(function(data){
+                    //alert("导航 成功");
+                }, function(data){
+                    //alert("导航 失败");
+                }, "WDPNavigationBar", "updateBar",
+                [{leftTitle:"hide", leftAction:"hide", leftUrl:"",
+                  rightTitle:"hide", rightAction:"hide", rightUrl:"",
+                  navigatorTitle:"< hide | hide > "}]);
+            }
+            function test_navbar_wdp() {
+                cordova.exec(function(data){
+                    //alert("导航 成功");
+                }, function(data){
+                    //alert("导航 失败");
+                }, "WDPNavigationBar", "updateBar",
+                [{leftTitle:"login", leftAction:"url", leftUrl:"wdsd://login",
+                  rightTitle:"login", rightAction:"url", rightUrl:"wdsd://login",
+                  navigatorTitle:"< login | login > "}]);
+            }
+            
+            function test_navbar_callback() {
+                cordova.exec(function(data){
+                    native_log("callback 成功:"+data);
+                }, function(data){
+                    native_log("callback 失败:"+data);
+                }, "WDPNavigationBar", "updateBar",
+                [{leftTitle:"login", leftAction:"callback", leftUrl:"",
+                  rightTitle:"login", rightAction:"callback", rightUrl:"",
+                  navigatorTitle:"< login | login > "}]);
+            }
+            
+            //alert(window.location.hostname);
+            
+        function onSuccess(result) {
+            alert("Result:"+ result);
+        }
+        function onFailure(err) {
+            alert("Failure:"+ err);
+        }
+
+            </script>
+    </head>
+    <body>
+        <div>
+            <h1>Apache Cordova 3.31</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+                <button onclick="test2();" style="height: 70px;">hello</button>
+                <button onclick="native_log('TEST');" style="height: 70px;">==LOG==</button>
+                <button onclick="test_navbar();" style="height: 70px;">导航栏</button>
+                <button onclick="id_card()" style="height: 70px;">身份证-正面</button>
+                <button onclick="id_card_back()" style="height: 70px;">身份证-反面</button>
+                <button onclick="page_control()" style="height: 70px;">关闭当前页面</button>
+                <button onclick="live()" style="height: 70px;">人脸识别</button>
+                <button onclick="bank_card_ocr()" style="height: 70px;">银行卡</button>
+                <button onclick="gps()" style="height: 70px;">GPS</button>
+                <button onclick="camera()" style="height: 70px;">摄像头</button>
+                <button onclick="open_browser()" style="height: 70px;">打开百度</button>
+                <button onclick="test_navbar2()" style="height: 70px;">NAV BAR url</button>
+                <button onclick="test_navbar_close()" style="height: 70px;">NAV BAR close</button>
+                <button onclick="test_navbar_back()" style="height: 70px;">NAV BAR back</button>
+                <button onclick="test_navbar_reload()" style="height: 70px;">NAV BAR reload</button>
+                <button onclick="test_navbar_hide()" style="height: 70px;">NAV BAR hide</button>
+                <button onclick="test_navbar_wdp()" style="height: 70px;">NAV BAR login</button>
+                <button onclick="test_navbar_callback()" style="height: 70px;">NAV BAR callback</button>
+                <a href="index2.html" style="height: 70px;">下一页</a>
+            </div>
+        </div>
+        
+        <form action="index2.html">
+            <input type="submit" value="下一页" style="height: 70px;">
+        </form>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        
+    </body>
+</html>
