@@ -1,0 +1,42 @@
+测试环境：
+（1）登陆方法： ssh 10.214.124.65 用户名：zhanmingtong 密码：password
+登陆跳板机后可以跳转到 10.214.160.* 中任意机器， 用户名密码都是 root/passoword
+（2） 服务器
+a、nginx，统一在10.214.160.50 软件在/opt/nginx目录，请建立自己项目的名称：如：/opt/payment
+b、tomcat，统一在10.214.160.52 软件在/opt/tomcat目录，请建立自己的项目名称：如：/opt/payment
+c、数据库和redis，统一在10.214.160.55 陈超已经安装好软件和建好了库。
+
+
+由于是集中的功能测试环境，是公用的，要定好自己的目录，所有的端口，请限制在1000~2000内，可以为其他系统腾出资源，谢谢！
+
+
+lvshuxiang(吕淑湘)    07-21 18:38:13
+MySQL Dev
+ip: 10.214.160.55
+port: 3306
+dbname: credit_app_dev
+user: credit_dev_user
+pwd: credit_dev_user
+
+
+
+
+MySQL QA
+ip: 10.214.160.55
+port: 3306
+dbname: credit_app_qa
+user: credit_qa_user
+pwd: credit_qa_user
+
+
+
+
+Redis
+ip: 10.214.160.55
+port: 6380
+linjinxiao(林金晓)    07-21 18:40:22
+ 
+linjinxiao(林金晓)    07-21 18:41:56
+nginx和tomcat是公用的？那可以随意重启吗？数据库和redis是单独使用的吧
+lvshuxiang(吕淑湘)    07-21 18:58:07
+nginx和tomcat可以自己建目录，和其他项目分开
