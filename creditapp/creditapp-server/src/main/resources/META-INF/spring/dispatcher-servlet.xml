@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/util
+            http://www.springframework.org/schema/util/spring-util.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 默认扫描的包路径 -->
+	<context:component-scan base-package="com.wanda.creditapp.controller*" />
+	<mvc:resources mapping="/assets/**" location="/assets/" />
+	<mvc:annotation-driven validator="validator"/>
+	 <!-- 验证器 -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+    <!-- 资源文件：messages.properties -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages</value>
+            </list>
+        </property>
+    </bean>
+
+	<bean id="requestMappingHandlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<!-- 解决 HttpMediaTypeNotAcceptableException: Could not find acceptable representation -->
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="requestMappingHandlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<!-- 在HandlerMapping内配置拦截器 -->
+		<!-- <property name="interceptors"> <list> <ref bean="httpRequestInterceptor" /> </list> </property> -->
+		<property name="order" value="1"></property>
+	</bean>
+
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/view/html" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="freemarkerSettings">
+			<props>
+				<!--<prop key="localizedLookup">false</prop> 让freemarker不会去检索_zh_CN和_CN模板 -->
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="number_format">#.##</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!--exposeRequestAttributes exposeSessionAttributes两个属性都被设置为true。
+	     结果是请求和会话属性都被复制到模板的属性集中，可以使用FreeMarker的表达式语言来访问并显示 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"></property>
+		<!-- <property name="prefix" value="html" /> -->
+		<property name="suffix" value=".html" />
+		<property name="contentType" value="text/html;charset=utf-8" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="requestContextAttribute" value="request" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+	</bean>
+	
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="${maxUploadSize}"></property>
+		<property name="maxUploadSizePerFile" value="${maxUploadSizePerFile}"></property>
+		<property name="maxInMemorySize" value="${maxInMemorySize}"></property>
+	</bean> -->
+	
+</beans>

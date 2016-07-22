@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" 
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="tables" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+		<property name="javaFileEncoding" value="UTF-8" />
+		<plugin type="com.wanda.creditapp.user.sql.generator.CommentPlugin"></plugin>
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+			<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://10.199.204.31:3306/creditapp" userId="root" password="111111">
+		</jdbcConnection>
+			<javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+				<property name="forceBigDecimals" value="false" />
+			</javaTypeResolver>
+
+			<javaModelGenerator targetPackage="com.wanda.creditapp.user.domain" targetProject="src\main\java">
+				<property name="enableSubPackages" value="true" />
+				<property name="trimStrings" value="true" />
+				<property name="rootClass" value="com.wanda.creditapp.common.domain.BaseDomain" /><!-- 存放公共字段，公共字段默认就不会再生成了 -->
+			</javaModelGenerator>
+
+			<sqlMapGenerator targetPackage="com.wanda.creditapp.user" targetProject="src\main\resources">
+				<property name="enableSubPackages" value="true" />
+			</sqlMapGenerator>
+
+			<javaClientGenerator type="XMLMAPPER" targetPackage="com.wanda.creditapp.user.dao" targetProject="src\main\java">
+				<property name="enableSubPackages" value="true" />
+			</javaClientGenerator>
+
+			<table tableName="app_accumulation_account" domainObjectName="AccumulationAccount" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+				<property name="useActualColumnNames" value="false" />
+			</table>
+		<!-- 	<table tableName="app_verify_codes" domainObjectName="VerifyCodes" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+				<property name="useActualColumnNames" value="false" />
+			</table>
+			<table tableName="app_msg_templates" domainObjectName="MsgTemplates" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+				<property name="useActualColumnNames" value="false" />
+			</table> -->
+	</context>
+</generatorConfiguration> 

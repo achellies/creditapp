@@ -1,0 +1,29 @@
+<section class="repaymentplan-page">
+    <div class="planlist ui-border-t ">
+        <div id="plan-{{plan.period}}" class="" ng-repeat="plan in planList">
+            <div class="plan-title ui-row-flex ui-border-b">
+                <div class="ui-col ui-col-1">
+                    <p class="period">{{plan.period|paddingZero:2}}期</p>
+                </div>
+                <div class="ui-col ui-col-3">
+                    <p class="repaymentamount">还款金额:<span class="amount">{{plan.loanAmount|currency:''}}</span></p>
+                </div>
+                <div class="ui-col ui-col-1" ng-click="toggle(plan.period)">
+                    <a id="arrow-{{plan.period}}" href="javascipt:void(0)" class="arrow" ></a>
+                </div>
+            </div>
+            <div id="plan-detail-{{plan.period}}" class="plan-detail">
+                <div class="ui-border-b ui-row-flex">
+                    <div class="ui-col ui-col-1"></div>
+                    <div class="ui-col ui-col-4">
+                        <p ng-repeat="principalAmt in plan.principalAmtList">
+                            款{{principalAmt.times|numberToChinese:false}}本金:<span class="amount">{{principalAmt.payPrincipalAmt|currency:''}}</span>
+                        </p>
+                        <p>分期手续费:<span class="amount">{{plan.limitFeeAmount|currency:''}}</span></p>
+                        <p>额度动用手续费:<span class="amount">{{plan.useFeeAmount|currency:''}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

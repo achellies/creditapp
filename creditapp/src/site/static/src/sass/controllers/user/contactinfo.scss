@@ -1,0 +1,21 @@
+input.ui-form-item,
+textarea.ui-form-item {
+    padding-left: 100px;
+}
+.ui-form-item label:not(.ui-switch):not(.ui-checkbox):not(.ui-checkbox-s):not(.ui-radio) {
+    width: 110px;
+}
+
+.ui-form-item input,
+.ui-form-item textarea {
+    padding-left: 110px;
+    color: #222;
+    font-size: 16px;
+    font-family: PingFangSC-Regular;
+}
+.ui-form-item select {
+    padding-left: 15px;
+    color: #222;
+    font-size: 16px;
+    font-family: PingFangSC-Regular;
+}

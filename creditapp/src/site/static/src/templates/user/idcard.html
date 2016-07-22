@@ -1,0 +1,37 @@
+<div class="ui-container" ng-cloak id='idcardController'>
+    <div class="top-container ui-border-b" style="padding-bottom: 20px;">
+        <div class="ui-flex ui-flex-pack-center card-area">
+            <div id="frontImageContainer" class="photo-container photo-front ui-row-flex ui-flex-pack-center ui-flex-align-center">
+                <img class="filter-blur" height='93' height='148' id='frontImg' ng-src='{{frontImgDataUrl}}'>
+            </div>
+            <div class="gap"></div>
+            <div id="backImageContainer" class="photo-container photo-back ui-row-flex ui-flex-pack-center ui-flex-align-center">
+                <img class="filter-blur" height='93' height='148' id='backImg' ng-src='{{backImgDataUrl}}'>
+            </div>
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div class="ui-form ui-border-t">
+        <div class="ui-form-item ui-form-item-show ui-border-b">
+            <label class="form-title" for="#">姓名:</label>
+            <span class="form-input-readonly">{{realName}}</span>
+        </div>
+        <div class="ui-form-item ui-form-item-show ui-border-b">
+            <label class="form-title" for="#">身份证号:</label>
+            <span class="form-input-readonly">{{idCardNo}}</span>
+        </div>
+        <div class="ui-form-item ui-form-item-show ui-border-b">
+            <label class="form-title" for="#">有效期限:</label>
+            <span class="form-input-readonly">{{validDate}}</span>
+        </div>
+    </div>
+
+     <div class="idard-agreement">
+            <wd-agreement agree-model="isAgree" agree-preword="同意" agreements="agreement" agree-col=0 agree-url="" agree-click="AgreeClick(e)"></wd-agreement>
+        </div>
+    <div class="ui-footer ui-footer-stable" wd-fixed-bottom>
+        <button class="ui-btn-lg ui-btn-primary wd92" ng-click="submit()" ng-disabled="!isAgree">
+            下一步
+        </button>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+{
+    "reqHeader":{
+        "entityId":"99bill",
+        "appId":"123456",
+        "sessionId":"registersdf",
+        "reqId":"8272wweuudssw",
+        "accessToken":"qwedadd123"
+    },
+    "logCollection":{
+        "terminal":"",
+        "vendor":"HTC",
+        "deviceId":"sdf",
+        "screenSize":null,
+        "network":"",
+        "mac":"",
+        "gps":"",
+        "imei":"",
+        "ip":"192.168.3.100",
+        "os":""
+    },
+    "mobile":"13918769098",
+    "messageAuthenCode":"987678",
+    "password":"XXXXXX"
+}
+注册场景，返回样例数据:
+{
+  "PWID": 712929531927322624,
+  "respHeader": {
+    "reqId": "8272wweuudssw",
+    "respCode": "UAP-10000",
+    "respMessage": "调用成功",
+    "sessionId": "registersdf"
+    }
+}
+

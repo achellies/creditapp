@@ -1,0 +1,175 @@
+.repaymentplan-page {
+    .plan-title {
+        height: 60px;
+        line-height: 60px;
+        position: relative;
+        .period {
+            font-size: 14px;
+            color: #3d95eb;
+            font-size: 14px;
+            text-align: center;
+        }
+        .arrow {
+            width: 14px;
+            height: 8px;
+            display: inline-block;
+            background-image: url("../../imgs/arrow.png");
+            margin-right: 15px;
+        }
+        & div:last-child {
+            text-align: right;
+        }
+    }
+    .plan-detail {
+        height: 0px;
+        color: #888888;
+        font-size: 14px;
+        overflow: hidden;
+        p {
+            height: 30px;
+            line-height: 35px;
+        }
+    }
+}
+
+.amount {
+    padding-left: 10px;
+}
+
+.up {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: rotateup;
+    animation-name: rotateup;
+}
+
+.down {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: rotatedown;
+    animation-name: rotatedown;
+}
+
+.show {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: slideShow;
+    animation-name: slideShow;
+}
+
+.hide {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: slideHide;
+    animation-name: slideHide;
+}
+
+@-webkit-keyframes rotatedown {
+    from {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+    to {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@keyframes rotatedown {
+    from {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+    to {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@-webkit-keyframes rotateup {
+    from {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: none;
+        transform: none;
+    }
+    to {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes rotateup {
+    from {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: none;
+        transform: none;
+    }
+    to {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+}
+
+@-webkit-keyframes slideShow {
+    from {
+        height: 0px;
+    }
+    to {
+        display: block;
+        height: 156px;
+    }
+}
+
+@keyframes slideShow {
+    from {
+        height: 0px;
+    }
+    to {
+        display: block;
+        height: 156px;
+    }
+}
+
+@-webkit-keyframes slideHide {
+    from {
+        display: block;
+        height: 156px;
+    }
+    to {
+        display: none;
+        height: 0px;
+    }
+}
+
+@keyframes slideHide {
+    from {
+        display: block;
+        height: 156px;
+    }
+    to {
+        display: none;
+        height: 0px;
+    }
+}

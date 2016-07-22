@@ -1,0 +1,16 @@
+<div>
+    <div class="ui-row padding-10 ui-border-b" ng-if="personalModel.length">查个人</div>
+    <ul class="ui-row ui-list ui-list-one ui-list-link" ng-click="showDetail()">
+        <li class="ui-list-info ui-border-b" ng-repeat="personalReport in personalModel">
+            <h4 class="ui-nowrap">{{personalReport.reportTitle}}</h4>
+            <div class="ui-txt-info font-14">{{personalReport.queryDate}}</div>
+        </li>
+    </ul>
+    <div class="ui-row padding-10 ui-border-b" ng-if="companyModel.length">查公司</div>
+    <ul class="ui-row ui-list ui-list-link" ng-click="showDetail()">
+        <li class="ui-list-info ui-border-b" ng-repeat="companyReport in companyModel">
+            <h4 class="ui-nowrap">{{companyReport.companyName}}</h4>
+            <div class="ui-txt-info font-14">法定代表人：{{companyReport.companyCorporation}}<span style="float: right">{{companyReport.queryDate}}</span></div>
+        </li>
+    </ul>
+</div>

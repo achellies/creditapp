@@ -1,0 +1,38 @@
+<div>
+    <div class="ui-row ui-border-b" style="height:1em;"></div>
+    <section class="ui-row padding-10 ui-border-b">
+        <div class="ui-col ui-col-33">车辆归属城市</div>
+        <select class="ui-col ui-col-67" ng-model="citySelected" ng-options="city.cityName for city in cityModel">
+            <option value="">选择城市</option>
+        </select>
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <div class="ui-col ui-col-33">
+            <label for="carNumber">车牌号</label>
+        </div>
+        <div class="ui-col ui-col-67">
+            <input class="ui-col" id="carNumber" type="text" ng-model="carNumber" placeholder="请输入车牌号">
+        </div>
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <label for="engineID" class="ui-col ui-col-33">发动机号</label>
+        <input class="ui-col ui-col-67" id="engineID" type="text" ng-model="engineID" placeholder="发动机号码">
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <label for="carFrameID" class="ui-col ui-col-33">车架号</label>
+        <input class="ui-col ui-col-67" id="carFrameID" type="text" ng-model="carFrameID" placeholder="完整车架号">
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <div class="ui-col ui-col-33">汽车类型</div>
+        <select class="ui-col ui-col-67" ng-model="carTypeSelected" ng-options="car.typeName for car in carTypes">
+            <option value="">--请选择--</option>
+        </select>
+    </section>
+    <div class="ui-row padding-10">
+        <label class="ui-checkbox-s">
+            <input id="agreement" type="checkbox" name="agreement" ng-model="checked">
+        </label>
+        <label for="agreement">我已阅读并同意</label><a href="javascript:void(0);">《XXX查询协议》</a>
+    </div>
+    <button class="ui-row ui-btn-lg ui-btn-primary" ng-disabled="validate()" ng-click="submitAdd()">立即添加</button>
+</div>

@@ -1,0 +1,22 @@
+<div>
+    <section class="mg-top10 show_detail_table">
+        <table>
+            <thead>
+                <tr>
+                    <th class="date">日期</th>
+                    <th class="project">项目</th>
+                    <th class="amount">发生金额</th>
+                    <th class="amount">账户余额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in ar_item">
+                    <td class="date">{{item.date}}</td>
+                    <td class="project">{{item.project}}</td>
+                    <td class="amount">{{item.amount}}</td>
+                    <td class="amount">{{item.balance}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

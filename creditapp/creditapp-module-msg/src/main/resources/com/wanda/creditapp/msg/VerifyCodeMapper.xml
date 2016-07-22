@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanda.creditapp.msg.dao.VerifyCodeMapper">
+	<resultMap id="BaseResultMap" type="com.wanda.creditapp.msg.domain.VerifyCode">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="verify_receiver" property="verifyReceiver" jdbcType="VARCHAR" />
+		<result column="verify_code" property="verifyCode" jdbcType="VARCHAR" />
+		<result column="expired_time" property="expiredTime" jdbcType="TIMESTAMP" />
+		<result column="verify_type" property="verifyType" jdbcType="INTEGER" />
+		<result column="data_status" property="dataStatus" jdbcType="INTEGER" />
+		<result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+		<result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+		<result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from app_verify_codes
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.wanda.creditapp.msg.domain.VerifyCode">
+		insert into app_verify_codes (id, verify_receiver, verify_code,
+		expired_time, verify_type, data_status,
+		data_version, created_at, updated_at,
+		create_user, update_user)
+		values (#{id,jdbcType=INTEGER}, #{verifyReceiver,jdbcType=VARCHAR}, #{verifyCode,jdbcType=VARCHAR},
+		#{expiredTime,jdbcType=TIMESTAMP}, #{verifyType,jdbcType=INTEGER},
+		<if test="dataStatus != null and dataStatus.trim().length() != 0">
+			#{dataStatus,jdbcType=INTEGER},
+		</if>
+		<if test="dataStatus == null or dataStatus.trim().length() == 0">
+			1,
+		</if>
+		<if test="dataVersion != null and dataVersion.trim().length() != 0">
+			#{dataVersion,jdbcType=INTEGER},
+		</if>
+		<if test="dataVersion == null or dataVersion.trim().length() == 0">
+			1,
+		</if>
+		#{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP},
+		#{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.msg.domain.VerifyCode">
+		update app_verify_codes
+		set verify_receiver = #{verifyReceiver,jdbcType=VARCHAR},
+		verify_code = #{verifyCode,jdbcType=VARCHAR},
+		expired_time = #{expiredTime,jdbcType=TIMESTAMP},
+		verify_type = #{verifyType,jdbcType=INTEGER},
+		data_status = #{dataStatus,jdbcType=INTEGER},
+		data_version = #{dataVersion,jdbcType=INTEGER},
+		created_at = #{createdAt,jdbcType=TIMESTAMP},
+		updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+		create_user = #{createUser,jdbcType=VARCHAR},
+		update_user = #{updateUser,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select id, verify_receiver, verify_code, expired_time, verify_type, data_status,
+		data_version, created_at, updated_at, create_user, update_user
+		from app_verify_codes
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select id, verify_receiver, verify_code, expired_time, verify_type, data_status,
+		data_version, created_at, updated_at, create_user, update_user
+		from app_verify_codes
+	</select>
+	<select id="selectValidVerifyCode" resultMap="BaseResultMap">
+		SELECT id, verify_receiver, verify_code, expired_time, verify_type, data_status,
+		data_version, created_at, updated_at, create_user, update_user
+		FROM app_verify_codes
+		WHERE verify_receiver = #{0,jdbcType=VARCHAR}
+		AND expired_time > CURRENT_TIMESTAMP() ORDER BY id LIMIT 0,1
+	</select>
+	<!-- 新增记录前，确保库中不存在本用户的同类型的有效的记录 -->
+	<update id="invalidateVerifyCode">
+		update app_verify_codes
+		set data_status = 0,
+		data_version = data_version+1
+		where data_status = 1
+		and verify_receiver= #{0,jdbcType=VARCHAR}
+		and verify_type= #{1,jdbcType=INTEGER}
+	</update>
+	<!--更新给定验证码 -->
+	<update id="updateValidVerifyCode" parameterType="com.wanda.creditapp.msg.domain.VerifyCode">
+		update app_verify_codes 
+		set data_status = 2, data_version = data_version+1
+		where data_status = 1 
+		and verify_receiver= #{0,jdbcType=VARCHAR} 
+		and verify_code = #{1,jdbcType=VARCHAR} 
+		and verify_type= #{2,jdbcType=INTEGER}
+	</update>
+
+</mapper>

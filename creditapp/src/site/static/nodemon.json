@@ -1,0 +1,13 @@
+{
+    "ignore":[
+        "assets/",
+        "node_modules/",
+        "src/",
+        "gulpfile.js",
+        "package.json",
+        "webpack.config.js",
+        "dist/",
+        "mock-server/node_modules",
+        "mock-server/public"
+    ]
+}

@@ -1,0 +1,15 @@
+<div style="margin: 10px 0 0 0; back"></div>
+<div class="ui-container" ng-cloak>
+    <ul class="ui-list  ui-list-active ui-list-cover ui-bankcard-list">
+        <li class="ui-bankcard-list-item ui-border-t" ng-repeat="card in boundCards"  ng-click="SelectBankcard(card.id
+)" style="background-color:{{card.backgroundColor}}">
+            <div class="ui-bankcard-list-bankinfo">
+                <div class='imgholder imgholder-c-40 {{card.issueBankAbbr}}'></div>
+                <p class="issueBank">{{card.issueBank}}</p>
+            </div>
+            <div class="ui-bankcard-list-cardno">
+                <h3 class="cardnoEncrypted">{{card.accountNoEncrypted}}</h3>
+            </div>
+        </li>
+    </ul>
+</div>

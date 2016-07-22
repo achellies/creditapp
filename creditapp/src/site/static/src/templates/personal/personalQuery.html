@@ -1,0 +1,52 @@
+<div>
+    <div class="ui-row ui-border-b" style="height:1em;"></div>
+    <section class="ui-row padding-10 ui-border-b">
+        <div class="ui-col ui-col-33">姓名</div>
+        <div class="ui-col ui-col-67">{{userName}}</div>
+    </section>
+    <section class="ui-row padding-10 ui-border-b">
+        <div class="ui-col ui-col-33">身份证号</div>
+        <div class="ui-col ui-col-67">{{userCardID}}</div>
+    </section>
+    <div class="ui-row padding-10 ui-border-b">选择报告内容</div>
+    <section class="ui-row ui-justify">
+        <button ng-repeat="content in contentList" class="ui-btn ui-col ui-col-23 content-selected-{{content.selected}} btn-min-width font-12" personal-content-select>
+            {{content.title}}
+        </button>
+    </section>
+    <div class="ui-row ui-border-t" ng-if="contentList[CAR_INDEX].selected">
+        <div class="ui-row padding-10 ui-border-b">车辆信息</div>
+        <section class="ui-row padding-10 ui-border-b">
+            <div class="ui-col ui-col-33">车辆归属城市</div>
+            <select class="ui-col ui-col-67" ng-model="carInfo.citySelected" ng-options="city.cityName for city in cityModel">
+                <option value="">--请选择--</option>
+            </select>
+        </section>
+        <section class="ui-row padding-10 ui-border-b">
+            <div class="ui-col ui-col-33">
+                <label for="carInfo.carNumber">车牌号</label>
+            </div>
+            <div class="ui-col ui-col-67">
+                <input class="ui-col" id="carNumber" type="text" ng-model="carInfo.carNumber" placeholder="请输入车牌号">
+            </div>
+        </section>
+        <section class="ui-row padding-10 ui-border-b">
+            <div class="ui-col ui-col-33">汽车类型</div>
+            <select class="ui-col ui-col-67" ng-model="carInfo.carTypeSelected" ng-options="car.typeName for car in carTypes">
+                <option value="">--请选择--</option>
+            </select>
+        </section>
+    </div>
+    <div class="ui-row padding-10">
+        <label class="ui-checkbox-s">
+            <input id="agreement" type="checkbox" name="agreement" ng-model="checked">
+        </label>
+        <label for="agreement">我已阅读并同意</label><a href="javascript:void(0);">《XXX查询协议》</a>
+    </div>
+    <button class="ui-row ui-btn-lg ui-btn-primary" ng-disabled="validate()" ng-click="submitQuery()">立即查询</button>
+    <div class="ui-row padding-10">
+        <div class="ui-flex ui-flex-pack-center">
+            <a href="javascript:void(0);">《个人报告样例》</a>
+        </div>
+    </div>
+</div>

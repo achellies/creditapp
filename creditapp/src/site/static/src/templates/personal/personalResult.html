@@ -1,0 +1,26 @@
+<div>
+    <section class="info_area">
+        <div class="detail_item">
+            <label class="label_left">姓名</label><label class="label_right">王明亮</label>
+        </div>
+        <div class="detail_item">
+            <label class="label_left">性别</label><label class="label_right">男</label>
+        </div>
+        <div class="detail_item">
+            <label class="label_left">身份证号</label><label class="label_right">310xxxxxxx32</label>
+        </div>
+        <div class="detail_item">
+            <label class="label_left">出生年月</label><label class="label_right">1983-02-03</label>
+        </div>
+    </section>
+    <section class="mg-top10 title_icon_area">
+        <ul>
+            <li class="ui-col ui-col-25 title_icon"
+                ng-repeat="title in ar_title"
+                ng-click="showDetail(title.key)">
+                <img ng-src="{{title.icon}}" rel="{{title.value}}">
+                <p>{{title.value}}</p>
+            </li>
+        </ul>
+    </section>
+</div>

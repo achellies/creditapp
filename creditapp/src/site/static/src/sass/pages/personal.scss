@@ -1,0 +1,35 @@
+@charset 'utf-8';
+.content-selected-true {
+    background-image: url('../../imgs/personal/content-selected.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: #ffffff;
+}
+
+.nav-bar {
+    padding: 0 14px;
+    overflow-x: auto;
+}
+
+.ui-tab-nav li {
+    -webkit-box-align: center;
+    display: -webkit-box;
+    min-width: 80px;
+}
+
+.ui-tab-content {
+    margin-top: 0;
+}
+
+.ui-col-23 {
+    width: 23%;
+    margin: 1%;
+}
+
+.btn-min-width {
+    min-width: 5.6em;
+}
+
+.ui-placehold-img {
+    height: 180px;
+}
