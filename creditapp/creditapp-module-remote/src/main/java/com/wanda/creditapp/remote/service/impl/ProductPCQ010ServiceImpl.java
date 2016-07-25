@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.wanda.creditapp.common.constant.ExceptionConstant;
 import com.wanda.creditapp.common.constant.ProductConstant;
 import com.wanda.creditapp.common.exception.CreditAppException;
-import com.wanda.creditapp.common.requestmodel.product.AccumulationFundModel;
 import com.wanda.creditapp.common.requestmodel.product.ProductModel;
+import com.wanda.creditapp.remote.model.AccumulationFundModel;
 import com.wanda.creditapp.remote.service.ICallCreditRemoteService;
 import com.wanda.creditapp.remote.util.ValidateUtil;
 

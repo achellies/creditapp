@@ -1,3 +1,14 @@
+.info_area{
+  height: 156px;
+}
+.icon_detail_area{
+  &.follow_delete{
+    animation: slideInRight 0.5s;
+    .detail_session{
+      margin-left: -20%;
+    }
+  }
+}
 .info_title_head{
   line-height: 45px;
   height: 45px;
@@ -6,7 +17,7 @@
 .info_area{
   background-color: #fff;
   height: 150px;
-  padding: 10px 30px;
+  padding: 0;
   .detail_item{
     height: 30px;
     line-height: 30px;
@@ -17,5 +28,16 @@
     .label_right{
       color: #000;
     }
+  }
+}
+.no-item-area{
+  background-color: #fafbfd;
+  text-align: center;
+  img{
+    padding-top: 120px;
+  }
+  h2{
+    padding-top: 17px;
+    padding-bottom: 116px;
   }
 }

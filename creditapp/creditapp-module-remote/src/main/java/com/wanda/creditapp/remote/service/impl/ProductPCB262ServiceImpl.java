@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.wanda.creditapp.common.constant.ExceptionConstant;
 import com.wanda.creditapp.common.constant.ProductConstant;
 import com.wanda.creditapp.common.exception.CreditAppException;
-import com.wanda.creditapp.common.requestmodel.product.AccumulationFundModel;
 import com.wanda.creditapp.common.requestmodel.product.ProductModel;
+import com.wanda.creditapp.remote.model.AccumulationFundModel;
 import com.wanda.creditapp.remote.service.ICallCreditRemoteService;
 import com.wanda.creditapp.remote.util.ValidateUtil;
 
@@ -50,14 +50,11 @@ public class ProductPCB262ServiceImpl extends AbstractProductService{
 		}
 		AccumulationFundModel accumulationFundModel = (AccumulationFundModel)model;
 		Map<String,String> param = new HashMap<String,String>();
-		param.put(ProductConstant.website_en, accumulationFundModel.getWebsite_en());
-		param.put(ProductConstant.website_sort, accumulationFundModel.getWebsite_sort());
-		param.put(ProductConstant.submit_type, accumulationFundModel.getSubmit_type());
-		param.put(ProductConstant.id_card_num, accumulationFundModel.getId_card_num());
-		param.put(ProductConstant.name, accumulationFundModel.getName());
-		param.put(ProductConstant.account, accumulationFundModel.getAccount());
 		param.put(ProductConstant.password, accumulationFundModel.getPassword());
-		param.put(ProductConstant.cell_phone_num, accumulationFundModel.getCell_phone_num());
+		param.putAll(accumulationFundModel.getData());
+		param.put(ProductConstant.website_en, accumulationFundModel.getTabs().getWebsite());
+		param.put(ProductConstant.website_sort, accumulationFundModel.getTabs().getSort());
+		param.put(ProductConstant.submit_type, accumulationFundModel.getTabs().getType());
 		param.put(ProductConstant.prod_id, prod_id);
 		return param;
 	}

@@ -17,6 +17,7 @@ import com.wanda.creditapp.common.constant.ProductConstant;
 import com.wanda.creditapp.common.constant.ResponseConstant;
 import com.wanda.creditapp.common.controller.BaseController;
 import com.wanda.creditapp.common.exception.CreditAppException;
+import com.wanda.creditapp.common.requestmodel.user.DissentModel;
 import com.wanda.creditapp.common.response.DataResponse;
 import com.wanda.creditapp.user.domain.DissentDomain;
 import com.wanda.creditapp.user.service.IDissentService;
@@ -38,11 +39,15 @@ public class DissentController extends BaseController{
 	 */
 	@RequestMapping(value="/car/dissent/save",method=RequestMethod.POST)
 	@ResponseBody
-    public DataResponse saveDissent(@Validated @RequestBody DissentDomain dissentDomain, BindingResult bindingResult) {
+    public DataResponse saveDissent(@Validated @RequestBody DissentModel dissentModel, BindingResult bindingResult) {
 		// 校验时的错误信息
 		if (bindingResult.hasErrors())
 			return buildRspWithErrors(bindingResult);
 		try{
+			DissentDomain dissentDomain = new DissentDomain();
+			dissentDomain.setDissentContent(dissentModel.getDissentContent());
+			dissentDomain.setUserId(dissentModel.getUserId());
+			dissentDomain.setRecordId(dissentModel.getRecordId());
 			this.dissentService.saveDissent(dissentDomain);
 		}catch(CreditAppException e){
 			logger.error("DissentController.saveDissent---新增异议失败!", e);

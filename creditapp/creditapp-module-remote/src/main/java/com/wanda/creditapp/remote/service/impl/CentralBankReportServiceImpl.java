@@ -34,11 +34,6 @@ public class CentralBankReportServiceImpl implements ICentralBankReportService{
 
 	@Override
 	public ProductResponseModel queryPersonalReport(CentralBankReportModel model) throws CreditAppException{
-		//TODO get current user from context and inject params to model
-//		User user = UserContext.currentUser();
-//		inputParams.put(ProductConstant.name,user.getName());
-//		inputParams.put(ProductConstant.cardNo,user.getCardNo());
-//		inputParams.put(ProductConstant.mobile,user.getMobile());
 		ProductResponseModel gatherRequestResult = productPCB265Service.productInvoke(model);
 		if(gatherRequestResult!=null){
 			Map<String,Object> retdata = gatherRequestResult.getRetdata();

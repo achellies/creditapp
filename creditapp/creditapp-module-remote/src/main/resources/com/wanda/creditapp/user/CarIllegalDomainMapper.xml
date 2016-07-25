@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanda.creditapp.remote.dao.CarIllegalMapper">
+  <resultMap id="BaseResultMap" type="com.wanda.creditapp.remote.domain.CarIllegalDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="car_number" jdbcType="VARCHAR" property="carNumber" />
+    <result column="car_type" jdbcType="INTEGER" property="carType" />
+    <result column="car_code" jdbcType="VARCHAR" property="carCode" />
+    <result column="car_engine" jdbcType="VARCHAR" property="carEngine" />
+    <result column="car_status" jdbcType="VARCHAR" property="carStatus" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="data_status" jdbcType="INTEGER" property="dataStatus" />
+    <result column="data_version" jdbcType="INTEGER" property="dataVersion" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="car_illegals" jdbcType="LONGVARCHAR" property="carIllegals" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_car_illegal_infos
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wanda.creditapp.remote.domain.CarIllegalDomain">
+    insert into app_car_illegal_infos (id, car_number, car_type, 
+      car_code, car_engine, car_status, 
+      user_id, data_status, data_version, 
+      created_at, updated_at, create_user, 
+      update_user, car_illegals)
+    values (#{id,jdbcType=INTEGER}, #{carNumber,jdbcType=VARCHAR}, #{carType,jdbcType=INTEGER}, 
+      #{carCode,jdbcType=VARCHAR}, #{carEngine,jdbcType=VARCHAR}, #{carStatus,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{dataStatus,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}, #{carIllegals,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.remote.domain.CarIllegalDomain">
+    update app_car_illegal_infos
+    set car_number = #{carNumber,jdbcType=VARCHAR},
+      car_type = #{carType,jdbcType=INTEGER},
+      car_code = #{carCode,jdbcType=VARCHAR},
+      car_engine = #{carEngine,jdbcType=VARCHAR},
+      car_status = #{carStatus,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      data_status = #{dataStatus,jdbcType=INTEGER},
+      data_version = #{dataVersion,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      car_illegals = #{carIllegals,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, car_number, car_type, car_code, car_engine, car_status, user_id, data_status, 
+    data_version, created_at, updated_at, create_user, update_user, car_illegals
+    from app_car_illegal_infos
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, car_number, car_type, car_code, car_engine, car_status, user_id, data_status, 
+    data_version, created_at, updated_at, create_user, update_user, car_illegals
+    from app_car_illegal_infos
+  </select>
+  
+  
+ 
+ 
+</mapper>

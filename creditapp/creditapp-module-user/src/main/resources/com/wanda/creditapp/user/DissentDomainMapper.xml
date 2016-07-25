@@ -14,11 +14,11 @@
     <result column="dissent_content" jdbcType="LONGVARCHAR" property="dissentContent" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from app_dissent
+    delete from app_dissentes
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.wanda.creditapp.user.domain.DissentDomain">
-    insert into app_dissent (id, user_id, record_id, 
+    insert into app_dissentes (id, user_id, record_id, 
       data_status, data_version, created_at, 
       updated_at, create_user, update_user, 
       dissent_content)
@@ -28,7 +28,7 @@
       #{dissentContent,jdbcType=LONGVARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.user.domain.DissentDomain">
-    update app_dissent
+    update app_dissentes
     set user_id = #{userId,jdbcType=INTEGER},
       record_id = #{recordId,jdbcType=INTEGER},
       data_status = #{dataStatus,jdbcType=INTEGER},
@@ -43,19 +43,19 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, user_id, record_id, data_status, data_version, created_at, updated_at, 
     create_user, update_user, dissent_content
-    from app_dissent
+    from app_dissentes
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, user_id, record_id, data_status, data_version, created_at, updated_at, 
     create_user, update_user, dissent_content
-    from app_dissent
+    from app_dissentes
   </select>
   
  
   <!--新增异议-->
   <insert id="saveDissent" parameterType="com.wanda.creditapp.user.domain.DissentDomain">
-     insert into app_dissent (id, user_id, record_id, 
+     insert into app_dissentes (id, user_id, record_id, 
 		      data_status, data_version, created_at, 
 		      updated_at, create_user, update_user, 
 		      dissent_content)
@@ -83,13 +83,13 @@
   <!--查询所有异议-->
   <select id="queryAllCarDissent" resultMap="BaseResultMap">
     select *
-    from app_dissent
+    from app_dissentes
   </select>
   
   
   <select id="queryCarDissentByRecordId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select *
-    from app_dissent
+    from app_dissentes
     where record_id = #{recordId,jdbcType=INTEGER}
   </select>
   

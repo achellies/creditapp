@@ -2,6 +2,8 @@ package com.wanda.creditapp.common.sercurity;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -23,6 +25,7 @@ public class User implements Serializable {
 	/**
 	 * 密码
 	 */
+	@JsonIgnore  //json序列化时,忽略该字段
 	private String userPassword;
 
 	/**
@@ -39,11 +42,6 @@ public class User implements Serializable {
 	 * 身份证号
 	 */
 	private String userIdNumber;
-
-	/**
-	 * 用户类型
-	 */
-	private Integer userType;
 
 	/**
 	 * 昵称
@@ -65,20 +63,6 @@ public class User implements Serializable {
 	 */
 	private String userImgpath;
 
-	/**
-	 * 预留信息
-	 */
-	private String userMessage;
-
-	/**
-	 * 状态
-	 */
-	private Integer dataStatus;
-
-	/**
-	 * 版本
-	 */
-	private Integer dataVersion;
 
 	private String accessToken;
 
@@ -148,13 +132,6 @@ public class User implements Serializable {
 		this.userIdNumber = userIdNumber == null ? null : userIdNumber.trim();
 	}
 
-	public Integer getUserType() {
-		return userType;
-	}
-
-	public void setUserType(Integer userType) {
-		this.userType = userType;
-	}
 
 	public String getUserNickname() {
 		return userNickname;
@@ -186,30 +163,6 @@ public class User implements Serializable {
 
 	public void setUserImgpath(String userImgpath) {
 		this.userImgpath = userImgpath == null ? null : userImgpath.trim();
-	}
-
-	public String getUserMessage() {
-		return userMessage;
-	}
-
-	public void setUserMessage(String userMessage) {
-		this.userMessage = userMessage == null ? null : userMessage.trim();
-	}
-
-	public Integer getDataStatus() {
-		return dataStatus;
-	}
-
-	public void setDataStatus(Integer dataStatus) {
-		this.dataStatus = dataStatus;
-	}
-
-	public Integer getDataVersion() {
-		return dataVersion;
-	}
-
-	public void setDataVersion(Integer dataVersion) {
-		this.dataVersion = dataVersion;
 	}
 
 	public String getAccessToken() {

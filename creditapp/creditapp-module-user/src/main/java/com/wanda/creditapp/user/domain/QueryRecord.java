@@ -1,50 +1,40 @@
 package com.wanda.creditapp.user.domain;
 
 import com.wanda.creditapp.common.domain.BaseDomain;
+import java.util.Date;
 
 public class QueryRecord extends BaseDomain {
-    /**
-     * 序列号
-     */
-    private String serialno;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 产品类型
-     */
-    private String producttype;
-
-    /**
-     * 输入参数
+	/**
+     * 查询参数
      */
     private String parameter;
 
     /**
-     * 用户ID
+     * 查询时间
      */
-    private Integer userid;
-
-    private Integer version;
+    private Date queryTime;
 
     /**
-     * 返回结果
+     * 该报告的拥有者
      */
-    private String response;
+    private Integer userId;
 
-    public String getSerialno() {
-        return serialno;
-    }
+    /**
+     * 产品类型
+     */
+    private String productType;
 
-    public void setSerialno(String serialno) {
-        this.serialno = serialno == null ? null : serialno.trim();
-    }
+    /**
+     * 版本号
+     */
+    private Integer dataVersion;
 
-    public String getProducttype() {
-        return producttype;
-    }
-
-    public void setProducttype(String producttype) {
-        this.producttype = producttype == null ? null : producttype.trim();
-    }
+    /**
+     * 查询结果
+     */
+    private String result;
 
     public String getParameter() {
         return parameter;
@@ -54,27 +44,43 @@ public class QueryRecord extends BaseDomain {
         this.parameter = parameter == null ? null : parameter.trim();
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Date getQueryTime() {
+        return queryTime;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setQueryTime(Date queryTime) {
+        this.queryTime = queryTime;
     }
 
-    public Integer getVersion() {
-        return version;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setVersion(Integer version) {
-        this.version = version;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getResponse() {
-        return response;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setResponse(String response) {
-        this.response = response == null ? null : response.trim();
+    public void setProductType(String productType) {
+        this.productType = productType == null ? null : productType.trim();
+    }
+
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result == null ? null : result.trim();
     }
 }

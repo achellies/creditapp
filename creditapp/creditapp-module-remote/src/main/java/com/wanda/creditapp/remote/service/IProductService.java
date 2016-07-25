@@ -1,7 +1,5 @@
 package com.wanda.creditapp.remote.service;
 
-import java.util.Map;
-
 import com.wanda.creditapp.common.exception.CreditAppException;
 import com.wanda.creditapp.common.requestmodel.product.ProductModel;
 import com.wanda.creditapp.common.responsemodel.product.ProductResponseModel;

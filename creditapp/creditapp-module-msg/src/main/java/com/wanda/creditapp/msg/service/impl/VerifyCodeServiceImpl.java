@@ -24,7 +24,7 @@ public class VerifyCodeServiceImpl implements IVerifyCodeService {
 		try {
 			// 插入之前确保库中没有有效的记录
 			verifyCodeMapper.invalidateVerifyCode(verifyCode.getVerifyReceiver(), verifyCode.getVerifyType());
-			result = verifyCodeMapper.insert(verifyCode);
+			result = verifyCodeMapper.saveVerifyCode(verifyCode);
 		} catch (Exception e) {
 			logger.error("VerifyCodeServiceImpl.insert-新增验证码异常", e);
 			throw new CreditAppException("VerifyCodeServiceImpl.insert-新增验证码异常", e);

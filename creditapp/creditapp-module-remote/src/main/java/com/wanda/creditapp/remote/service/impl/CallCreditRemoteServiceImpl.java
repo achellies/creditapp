@@ -66,6 +66,7 @@ public class CallCreditRemoteServiceImpl implements ICallCreditRemoteService{
 			throw new CreditAppException(ExceptionConstant.innerException.getErrorCode(),ExceptionConstant.innerException.getErrorMessage());
 		}
 		Map<String,Object> result = doCall(requestParams,product_path,HttpPost.METHOD_NAME);
+		result.put(ProductConstant.prod_id, datas.get(ProductConstant.prod_id));
 		return result;
 	}
 	

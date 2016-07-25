@@ -3,8 +3,18 @@
 }
 .list_info_area{
   background-color: #fff;
-  height: 100px;
-  padding: 10px 30px;
+  height: 117px;
+  padding: 0;
+  // 显示删除按钮时
+  &.follow_delete{
+    animation: slideInRight 0.5s;
+    .detail_session{
+      margin-left: -20%;
+    }
+  }
+  .detail_session{
+    padding: 20px 15px;
+  }
   .detail_item{
     height: 30px;
     line-height: 30px;

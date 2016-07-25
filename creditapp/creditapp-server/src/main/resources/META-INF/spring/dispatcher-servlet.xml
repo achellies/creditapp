@@ -15,12 +15,18 @@
 
 	<!-- 默认扫描的包路径 -->
 	<context:component-scan base-package="com.wanda.creditapp.controller*" />
+	
+	<!--处理静态资源-->
 	<mvc:resources mapping="/assets/**" location="/assets/" />
+	
+	<!--校验器-->
 	<mvc:annotation-driven validator="validator"/>
+	
 	 <!-- 验证器 -->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="validationMessageSource" ref="messageSource"/>
     </bean>
+    
     <!-- 资源文件：messages.properties -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">

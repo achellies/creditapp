@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.wanda.creditapp.common.constant.ExceptionConstant;
@@ -43,6 +42,29 @@ public class AccumulationServiceImpl implements IAccumulationService{
 	@Override
 	public AccumulationAccount queryAccumulationAccountById(Integer id) {
 		return mapper.selectByPrimaryKey(id);
+	}
+	
+	/**
+	 * 删除公积金账号,需要验证该公积金账号是否属于当前登录用户
+	 */
+	@Override
+	public void deleteAccumulationAccount(Integer accumulationAccountId,Integer userId) throws CreditAppException {
+		AccumulationAccount account = mapper.selectByPrimaryKey(accumulationAccountId);
+		if(account==null){
+			throw new CreditAppException(ExceptionConstant.afa_empty_account);
+		}
+		if(!account.getUserId().equals(userId)){
+			throw new CreditAppException(ExceptionConstant.afa_wrong_account);
+		}
+		int result = mapper.deleteByPrimaryKey(accumulationAccountId);
+		if(result==0){
+			throw new CreditAppException(ExceptionConstant.afa_delete_fail);
+		}
+		
+	}
+	
+	public List<AccumulationAccount> queryAccountByUserId(Integer userId) throws CreditAppException{
+		return mapper.selectByUserId(userId);		
 	}
 	
 	

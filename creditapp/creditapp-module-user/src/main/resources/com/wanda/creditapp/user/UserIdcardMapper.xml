@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanda.creditapp.user.dao.UserIdcardMapper" >
+  <resultMap id="BaseResultMap" type="com.wanda.creditapp.user.domain.UserIdcard" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="uap_pwid" property="uapPwid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="idNumber" property="idnumber" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="issuing_authority" property="issuingAuthority" jdbcType="VARCHAR" />
+    <result column="valid_from" property="validFrom" jdbcType="DATE" />
+    <result column="valid_thru" property="validThru" jdbcType="DATE" />
+    <result column="data_status" property="dataStatus" jdbcType="INTEGER" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from app_users_idcards
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wanda.creditapp.user.domain.UserIdcard" >
+    insert into app_users_idcards (id, user_id, uap_pwid, 
+      name, idNumber, gender, 
+      nation, address, issuing_authority, 
+      valid_from, valid_thru, data_status, 
+      data_version, created_at, updated_at, 
+      create_user, update_user)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{uapPwid,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{nation,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{issuingAuthority,jdbcType=VARCHAR}, 
+      #{validFrom,jdbcType=DATE}, #{validThru,jdbcType=DATE}, #{dataStatus,jdbcType=INTEGER}, 
+      #{dataVersion,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.user.domain.UserIdcard" >
+    update app_users_idcards
+    set user_id = #{userId,jdbcType=INTEGER},
+      uap_pwid = #{uapPwid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      idNumber = #{idnumber,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      nation = #{nation,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      issuing_authority = #{issuingAuthority,jdbcType=VARCHAR},
+      valid_from = #{validFrom,jdbcType=DATE},
+      valid_thru = #{validThru,jdbcType=DATE},
+      data_status = #{dataStatus,jdbcType=INTEGER},
+      data_version = #{dataVersion,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, user_id, uap_pwid, name, idNumber, gender, nation, address, issuing_authority, 
+    valid_from, valid_thru, data_status, data_version, created_at, updated_at, create_user, 
+    update_user
+    from app_users_idcards
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, user_id, uap_pwid, name, idNumber, gender, nation, address, issuing_authority, 
+    valid_from, valid_thru, data_status, data_version, created_at, updated_at, create_user, 
+    update_user
+    from app_users_idcards
+  </select>
+</mapper>

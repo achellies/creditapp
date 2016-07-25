@@ -29,14 +29,15 @@
 				<property name="enableSubPackages" value="true" />
 			</javaClientGenerator>
 
-			<table tableName="app_accumulation_account" domainObjectName="AccumulationAccount" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<table tableName="app_users" domainObjectName="UserDomain" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 				<property name="useActualColumnNames" value="false" />
 			</table>
-		<!-- 	<table tableName="app_verify_codes" domainObjectName="VerifyCodes" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<table tableName="app_users_idcards" domainObjectName="UserIdcard" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 				<property name="useActualColumnNames" value="false" />
 			</table>
-			<table tableName="app_msg_templates" domainObjectName="MsgTemplates" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<table tableName="app_users_bankcards" domainObjectName="UserBankcard" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 				<property name="useActualColumnNames" value="false" />
-			</table> -->
+			</table>
+	
 	</context>
 </generatorConfiguration> 

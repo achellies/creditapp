@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="tabs" property="tabs" jdbcType="VARCHAR" />
     <result column="datas" property="datas" jdbcType="VARCHAR" />
+    <result column="account_password" property="accountPassword" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
@@ -18,18 +19,19 @@
   </delete>
   <insert id="insert" parameterType="com.wanda.creditapp.user.domain.AccumulationAccount" >
     insert into app_accumulation_account (tabs, datas, 
-      user_id, data_version, created_at, 
-      updated_at, create_user, update_user
-      )
+      account_password, user_id, data_version, 
+      created_at, updated_at, create_user, 
+      update_user)
     values (#{tabs,jdbcType=VARCHAR}, #{datas,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, 
-      #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}
-      )
+      #{accountPassword,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.user.domain.AccumulationAccount" >
     update app_accumulation_account
     set tabs = #{tabs,jdbcType=VARCHAR},
       datas = #{datas,jdbcType=VARCHAR},
+      account_password = #{accountPassword,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
       data_version = #{dataVersion,jdbcType=INTEGER},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
@@ -39,22 +41,21 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select id, tabs, datas, user_id, data_version, created_at, updated_at, create_user, 
-    update_user
+    select id, tabs, datas, account_password, user_id, data_version, created_at, updated_at, 
+    create_user, update_user
     from app_accumulation_account
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, tabs, datas, user_id, data_version, created_at, updated_at, create_user, 
-    update_user
+    select id, tabs, datas, account_password, user_id, data_version, created_at, updated_at, 
+    create_user, update_user
     from app_accumulation_account
   </select>
   
   <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-  	select id, tabs, datas, user_id, data_version, created_at, updated_at, create_user, 
-    update_user
-    from app_accumulation_account
-    where user_id = #{userId,jdbcType=INTEGER}
+  	select id, tabs, datas, account_password, user_id, data_version, created_at, updated_at, 
+    create_user, update_user
+    from app_accumulation_account where userId=#{userId,jdbcType=INTEGER}
   </select>
   
 </mapper>

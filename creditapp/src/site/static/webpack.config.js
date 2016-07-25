@@ -33,7 +33,7 @@ pages.forEach(function(p) {
 
 //entries.app = './src/js/app';
 entries.common = commonjs;
-entries.angular = ['angular', 'angular-route'];
+entries.angular = ['angular', 'angular-animate', 'angular-touch', 'angular-route'];
 entries.app = ['./src/js/app.js']
     .concat(directives)
     .concat(filters)

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wamda.creditapp.tool.service.AbstractFileUploadService;
-import com.wanda.creditapp.common.exception.CreditAppException;
 import com.wanda.creditapp.common.util.UUIDUtil;
 
 @Service("portraitService")

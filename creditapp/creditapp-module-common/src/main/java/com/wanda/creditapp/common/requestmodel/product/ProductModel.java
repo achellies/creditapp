@@ -10,8 +10,10 @@ public class ProductModel{
 	
 	/**页码*/
 	private int currentPage;
+	
 	/**每页数量(最少5条,最大100条)*/
 	private int pageSize;
+	
 	/**查询信息种类,见接口文档*/
 	private String sourcet;
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.wanda.creditapp.common.constant.ProductConstant;
 import com.wanda.creditapp.common.requestmodel.product.ProductModel;
 import com.wanda.creditapp.remote.service.ICallCreditRemoteService;
-import com.wanda.creditapp.remote.util.ValidateUtil;
 
 /**
  * 获取目前支持公积金查询的城市信息

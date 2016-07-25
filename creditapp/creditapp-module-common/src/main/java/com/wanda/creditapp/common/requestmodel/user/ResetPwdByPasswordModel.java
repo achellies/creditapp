@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class ResetPwdByPasswordModel {
 	
 	//@NotBlank(message = "{valid.required}")
-	private String PWID;   //统一账户编号
+	private String pwid;   //统一账户编号
 	
 	@NotBlank(message = "{valid.required}")
 	private String userPassword;  //新密码
@@ -15,12 +15,12 @@ public class ResetPwdByPasswordModel {
 	private String oldPwd;  //原密码
 
 	
-	public String getPWID() {
-		return PWID;
+	public String getPwid() {
+		return pwid;
 	}
 
-	public void setPWID(String pWID) {
-		PWID = pWID;
+	public void setPwid(String pwid) {
+		this.pwid = pwid;
 	}
 
 	public String getUserPassword() {

@@ -9,10 +9,10 @@ public interface AccumulationAccountMapper {
     int insert(AccumulationAccount record);
 
     AccumulationAccount selectByPrimaryKey(Integer id);
-    
-    List<AccumulationAccount> selectByUserId(Integer userId);
 
     List<AccumulationAccount> selectAll();
 
     int updateByPrimaryKey(AccumulationAccount record);
+    
+    List<AccumulationAccount> selectByUserId(Integer userId);
 }

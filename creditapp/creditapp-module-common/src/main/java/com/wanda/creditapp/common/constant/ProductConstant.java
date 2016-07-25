@@ -37,9 +37,9 @@ public enum ProductConstant {
 	
 	public static final String retdata = "retdata";
 	
-	public static final String name = "name";
+	public static final String name = "name";  
 	
-	public static final String cardNo = "cardNo";
+	public static final String cardNo = "cardNo"; 
 	
 	public static final String mobile = "mobile";
 	
@@ -111,6 +111,13 @@ public enum ProductConstant {
 	
 	public static final String keyType = "keyType";
 	
+	public static final String tab = "tab";
+	
+	public static final String carNumber = "carNumber";
+	
+	public static final String carCode = "carCode";
+	
+	public static final String carEngine = "carEngine";
 	
 	/***********product service的bean id常量**************/
 	
@@ -140,6 +147,9 @@ public enum ProductConstant {
 	
 	public static final String productPBB001Service = "productPBB001Service";
 	
+	public static final String productPCB108Service = "productPCB108Service";
+	
+	
 	public static final String centralBankReportService = "centralBankReportService";
 	
 	/******************************产品ID*************************************/
@@ -153,6 +163,8 @@ public enum ProductConstant {
 	public static final String P_C_B110 = "P_C_B110";
 	
 	public static final String P_C_B111 = "P_C_B111";
+	
+	public static final String P_C_B108 = "P_C_B108";
 	
 	/****************************关键的几个状态码***************************/
 	

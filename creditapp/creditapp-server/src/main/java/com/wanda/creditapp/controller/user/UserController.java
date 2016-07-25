@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wanda.creditapp.common.cache.RedisCache;
 import com.wanda.creditapp.common.constant.CommonConstant;
 import com.wanda.creditapp.common.constant.ExceptionConstant;
 import com.wanda.creditapp.common.constant.ResponseConstant;
 import com.wanda.creditapp.common.controller.BaseController;
+import com.wanda.creditapp.common.requestmodel.user.CertificationModel;
 import com.wanda.creditapp.common.requestmodel.user.LoginModel;
 import com.wanda.creditapp.common.requestmodel.user.ResetPwdByPasswordModel;
 import com.wanda.creditapp.common.requestmodel.user.ResetPwdByUserPhoneModel;
@@ -34,6 +34,8 @@ import com.wanda.creditapp.remote.domain.uap.UapResponseModel;
 import com.wanda.creditapp.remote.service.IUapUserManageService;
 import com.wanda.creditapp.security.TokenService;
 import com.wanda.creditapp.user.domain.UserDomain;
+import com.wanda.creditapp.user.domain.UserIdcard;
+import com.wanda.creditapp.user.service.IUserIdcardService;
 import com.wanda.creditapp.user.service.IUserService;
 import com.wanda.creditapp.user.util.UserContext;
 
@@ -49,6 +51,9 @@ public class UserController extends BaseController {
 	private IUserService userService;
 
 	@Autowired
+	private IUserIdcardService userIdcardService;
+
+	@Autowired
 	private IUapUserManageService uapUserManageService;
 
 	@Autowired
@@ -56,9 +61,6 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private TokenService tokenService;
-
-	@Autowired
-	private RedisCache redisCache;
 
 	/**
 	 * 用户注册
@@ -112,7 +114,7 @@ public class UserController extends BaseController {
 		// 校验时的错误信息
 		if (bindingResult.hasErrors())
 			return buildRspWithErrors(bindingResult);
-		// // 判断验证码输入结果
+		// 判断验证码输入结果 , 登录这块验证码没必要
 		// if (!verifyCodeService.checkVerifyCode(loginModel.getUserPhone(),
 		// loginModel.getVerifyCode())) {
 		// return new
@@ -141,7 +143,7 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/user/refreshToken", method = RequestMethod.POST)
 	@ResponseBody
-	public DataResponse refreshToken(@Validated @RequestBody Map<String,String> aaa, HttpServletRequest request, HttpServletResponse response) {
+	public DataResponse refreshToken(@Validated @RequestBody Map<String, String> aaa, HttpServletRequest request, HttpServletResponse response) {
 		User user = tokenService.getUserByRefreshToken(aaa.get("refreshToken"));
 		if (null == user) {
 			return new DataResponse(ResponseConstant.RESPONSE_REFRESHTOKEN_INVALID);
@@ -158,28 +160,33 @@ public class UserController extends BaseController {
 		// 校验时的错误信息
 		if (bindingResult.hasErrors())
 			return buildRspWithErrors(bindingResult);
-		// 验证码错误
-		if (!verifyCodeService.checkVerifyCode(resetPwdByUserPhoneModel.getUserPhone(), resetPwdByUserPhoneModel.getVerifyCode(), MsgConstant.VERIFYCODE_TYPE_2)) {
-			return new DataResponse(ResponseConstant.RESPONSE_ERRORCODE_VERIFYCODE_FAIL);
-		}
+		// 验证码错误 ,存在问题
+		// if
+		// (!verifyCodeService.checkVerifyCode(resetPwdByUserPhoneModel.getUserPhone(),
+		// resetPwdByUserPhoneModel.getVerifyCode(),MsgConstant.VERIFYCODE_TYPE_2))
+		// {
+		// return new
+		// DataResponse(ResponseConstant.RESPONSE_ERRORCODE_VERIFYCODE_FAIL);
+		// }
 		// 响应模型
 		UapResponseModel uapResponseModel = this.uapUserManageService.resetPwdByPhone(resetPwdByUserPhoneModel);
-
 		// 判断返回结果
 		if (CommonConstant.UAP_SUCCESS_CODE.equals(uapResponseModel.getRespCode())) {
 			// 根据手机号更新密码
 			UserDomain userDomain = new UserDomain();
 			userDomain.setUserPhone(resetPwdByUserPhoneModel.getUserPhone());
-			userDomain.setUapPwid(uapResponseModel.get(CommonConstant.PWID) + "");
 			userDomain.setUserPassword(resetPwdByUserPhoneModel.getUserPassword());
+			// userDomain.setUapPwid(uapResponseModel.get(CommonConstant.PWID) +
+			// "");
+			userDomain.setUapPwid(resetPwdByUserPhoneModel.getPwid());
 			int result = this.userService.updatePwdByPhone(userDomain);
 			if (result == -1) {
 				return new DataResponse(ResponseConstant.RESPONSE_ERRORCODE_NATIVE_FAIL);
 			}
 			// 清除缓存中的用户
-			this.redisCache.delete(CommonConstant.ACCESS_USER_KEY + uapResponseModel.get(CommonConstant.PWID));
+			// this.redisCache.delete(CommonConstant.ACCESS_USER_KEY +
+			// uapResponseModel.get(CommonConstant.PWID));
 		} else {
-			// 响应失败
 			return new DataResponse(ResponseConstant.RESPONSE_FAIL);
 		}
 		return new DataResponse(ResponseConstant.RESPONSE_SUCCESS);
@@ -195,7 +202,7 @@ public class UserController extends BaseController {
 		if (bindingResult.hasErrors())
 			return buildRspWithErrors(bindingResult);
 		// 输入的原登录密码是否正确
-		String pwd = this.userService.queryOldPwdByPwid(resetPwdByPasswordModel.getPWID());
+		String pwd = this.userService.queryOldPwdByPwid(resetPwdByPasswordModel.getPwid());
 		if (!resetPwdByPasswordModel.getOldPwd().equals(pwd)) {
 			return new DataResponse(ResponseConstant.RESPONSE_ERRORCODE_OLDPWD_FAIL);
 		}
@@ -205,19 +212,79 @@ public class UserController extends BaseController {
 		if (CommonConstant.UAP_SUCCESS_CODE.equals(uapResponseModel.getRespCode())) {
 			// 重置密码
 			UserDomain userDomain = new UserDomain();
-			userDomain.setUapPwid(uapResponseModel.get(CommonConstant.PWID) + "");
+			// userDomain.setUapPwid(uapResponseModel.get(CommonConstant.PWID) +
+			// "");
+			userDomain.setUapPwid(resetPwdByPasswordModel.getPwid());
 			userDomain.setUserPassword(resetPwdByPasswordModel.getUserPassword());
 			int result = this.userService.updateUserPwdByPwd(userDomain);
 			if (result == -1) {
 				return new DataResponse(ResponseConstant.RESPONSE_ERRORCODE_NATIVE_FAIL);
 			}
 			// 清除缓存中的用户
-			this.redisCache.delete(CommonConstant.ACCESS_USER_KEY + uapResponseModel.get(CommonConstant.PWID));
+			// this.redisCache.delete(CommonConstant.ACCESS_USER_KEY +
+			// uapResponseModel.get(CommonConstant.PWID));
 		} else {
-			// 响应失败
 			return new DataResponse(ResponseConstant.RESPONSE_FAIL);
 		}
 		return new DataResponse(ResponseConstant.RESPONSE_SUCCESS);
+	}
+
+	@RequestMapping(value = "/user/queryUserInfo")
+	@ResponseBody
+	public DataResponse queryUserInfo() {
+		DataResponse response = new DataResponse();
+		User user = UserContext.getCurrentUser();
+		if (user == null) {
+			response.setResultCode(ResponseConstant.RESPONSE_FAIL.getCode());
+			response.setResultMessage(ResponseConstant.RESPONSE_FAIL.getMsg());
+			response.getDataMap().put(CommonConstant.RESPONSE_ERRORCODE_KEY, ExceptionConstant.fetchLoginUserFail.getErrorCode());
+			response.getDataMap().put(CommonConstant.RESPONSE_ERRORMESSAGE_KEY, ExceptionConstant.fetchLoginUserFail.getErrorMessage());
+			response.getDataMap().put(CommonConstant.RESPONSE_ERRORDISPLAY_KEY, 1);
+			return response;
+		}
+		response.setResultCode(ResponseConstant.RESPONSE_SUCCESS.getCode());
+		response.setResultMessage(ResponseConstant.RESPONSE_SUCCESS.getMsg());
+		response.getDataMap().put("name", user.getUserRelname());
+		response.getDataMap().put("cardNo", user.getUserIdNumber());
+		return response;
+	}
+
+	/**
+	 * 实名认证请求(姓名和身份证)
+	 */
+	@RequestMapping(value = "/user/certification/req", method = RequestMethod.POST)
+	@ResponseBody
+	public DataResponse userCertification(@Validated @RequestBody CertificationModel certificationModel, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
+		// 校验时的错误信息
+		if (bindingResult.hasErrors())
+			return buildRspWithErrors(bindingResult);
+		User user = UserContext.getCurrentUser();
+		UserIdcard userIdcard = userIdcardService.queryIdcardbyUserId(user.getId());
+		if (!user.getUapPwid().equals(certificationModel.getUapPwid())) {// 实名认证的用户不是当前登录的用户
+			return new DataResponse(ResponseConstant.RESPONSE_ACCESSTOKEN_INVALID);
+		}
+		if (userIdcard != null) {
+			if (null != userIdcard.getDataStatus() && (userIdcard.getDataStatus() == 1 || userIdcard.getDataStatus() == 2)) {// 1-已提交认证请求
+				return new DataResponse(ResponseConstant.RESPONSE_REPEAT_REQUEST);// 重复的请求
+			}
+		} else {
+			userIdcard = new UserIdcard();
+		}
+		UapResponseModel uapResponseModel = this.uapUserManageService.userCertificationReq(certificationModel);
+		if (CommonConstant.UAP_SUCCESS_CODE.equals(uapResponseModel.getRespCode()) || "UAP-36110".equals(uapResponseModel.getRespCode())) {
+			userIdcard.setId(user.getId());
+			userIdcard.setUapPwid(user.getUapPwid());
+			userIdcard.setName(certificationModel.getName());
+			userIdcard.setIdnumber(certificationModel.getIdNumber());
+			userIdcard.setDataStatus(1);
+			if (1 == userIdcardService.saveOrUpdate(userIdcard)) {
+				return new DataResponse(ResponseConstant.RESPONSE_SUCCESS);
+			} else {
+				return new DataResponse(ResponseConstant.RESPONSE_ERRORCODE_NATIVE_FAIL);
+			}
+		} else {
+			return new DataResponse(ResponseConstant.RESPONSE_ERRORCODE_UNKNOWNERROR);// 未知错误
+		}
 	}
 
 	/**
@@ -233,7 +300,7 @@ public class UserController extends BaseController {
 		try {
 			BeanUtil.copyAllPropertys(user, userDomain);
 		} catch (Exception e) {
-			logger.error("UserController.userRegister-构造User对象并写入redis失败", e);
+			logger.error("UserController.userRegister----构造User对象并写入redis失败", e);
 			return null;
 		}
 		// 设置token并且添加到redis
@@ -248,26 +315,6 @@ public class UserController extends BaseController {
 		dr.put(CommonConstant.REFRESH_TOKEN_KEY, user.getRefreshToken());
 		dr.put(CommonConstant.PWID, user.getUapPwid());
 		return dr;
-	}
-	
-	@RequestMapping(value="/user/queryUserInfo")
-	@ResponseBody
-	public DataResponse queryUserInfo(){
-		DataResponse response = new DataResponse();
-		User user = UserContext.getCurrentUser();
-		if(user==null){
-			response.setResultCode(ResponseConstant.RESPONSE_FAIL.getCode());
-			response.setResultMessage(ResponseConstant.RESPONSE_FAIL.getMsg());
-			response.getDataMap().put(CommonConstant.RESPONSE_ERRORCODE_KEY, ExceptionConstant.fetchLoginUserFail.getErrorCode());
-			response.getDataMap().put(CommonConstant.RESPONSE_ERRORMESSAGE_KEY, ExceptionConstant.fetchLoginUserFail.getErrorMessage());
-			response.getDataMap().put(CommonConstant.RESPONSE_ERRORDISPLAY_KEY, 1);
-			return response;
-		}
-		response.setResultCode(ResponseConstant.RESPONSE_SUCCESS.getCode());
-		response.setResultMessage(ResponseConstant.RESPONSE_SUCCESS.getMsg());
-		response.getDataMap().put("name", user.getUserRelname());
-		response.getDataMap().put("cardNo", user.getUserIdNumber());
-		return response;
 	}
 
 	private DataResponse produceToken(User user, HttpServletRequest request, HttpServletResponse response) {

@@ -7,7 +7,7 @@ import Factories from './factories/factories';
 import Filters from './filters/filters';
 import commonDirectives from './directives/common';
 import personalDirectives from './directives/personal';
-var app = angular.module('wanda.app', ['ngRoute', 'wanda.app.services', 'wanda.app.directive', 'wanda.app.filter']),
+var app = angular.module('wanda.app', ['ngAnimate', 'ngTouch', 'ngRoute', 'wanda.app.services', 'wanda.app.directive', 'wanda.app.filter']),
     appServices = angular.module('wanda.app.services', []),
     appDirectives = angular.module('wanda.app.directive', []),
     appFilters = angular.module('wanda.app.filter', []);

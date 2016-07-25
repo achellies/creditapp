@@ -299,7 +299,6 @@ function wdUiScrollTab($timeout) {
     };
 }
 
-
 /**
  * export wd-directive module
  */

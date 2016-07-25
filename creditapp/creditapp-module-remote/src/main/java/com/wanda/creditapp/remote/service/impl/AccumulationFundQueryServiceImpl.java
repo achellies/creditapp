@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.wanda.creditapp.common.constant.ExceptionConstant;
 import com.wanda.creditapp.common.constant.ProductConstant;
 import com.wanda.creditapp.common.exception.CreditAppException;
-import com.wanda.creditapp.common.requestmodel.product.AccumulationFundModel;
 import com.wanda.creditapp.common.responsemodel.product.ProductResponseModel;
 import com.wanda.creditapp.common.util.JsonUtil;
-import com.wanda.creditapp.remote.dto.AccumulationFundField;
 import com.wanda.creditapp.remote.dto.AccumulationFundTabs;
+import com.wanda.creditapp.remote.model.AccumulationFundModel;
 import com.wanda.creditapp.remote.service.IAccumulationFundQueryService;
 import com.wanda.creditapp.remote.service.IProductService;
 import com.wanda.creditapp.user.domain.AccumulationAccount;
@@ -42,11 +42,22 @@ public class AccumulationFundQueryServiceImpl implements IAccumulationFundQueryS
 	private IProductService productPCQ010Service;
 
 	@Override
-	public ProductResponseModel queryAccumulationFund(Integer accumulationAccountId) throws CreditAppException {
+	public ProductResponseModel queryAccumulationFund(Integer accumulationAccountId,Integer userId) throws CreditAppException {
 		AccumulationAccount account = accumulationService.queryAccumulationAccountById(accumulationAccountId);
-		AccumulationFundTabs tabs = JsonUtil.buildNonNullBinder().getJsonToObject(account.getTabs(), AccumulationFundTabs.class);
-//		Map<String,String>
-		return null;
+		if(account==null){
+			throw new CreditAppException(ExceptionConstant.afa_empty_account);
+		}
+		if(!account.getUserId().equals(userId)){
+			throw new CreditAppException(ExceptionConstant.afa_wrong_account);
+		}
+		AccumulationFundModel gatherModel = buildGatherRequestParam(account);
+		ProductResponseModel gatherResponse = productPCB262Service.productInvoke(gatherModel);
+		if(gatherResponse==null || gatherResponse.getRetdata()==null){
+			throw new CreditAppException(ExceptionConstant.crs_empty_result);
+		}
+		AccumulationFundModel model = buildRequestParam(gatherResponse.getRetdata());
+		ProductResponseModel response = productPCQ010Service.productInvoke(model);
+		return response;
 	}
 
 	/**
@@ -55,13 +66,13 @@ public class AccumulationFundQueryServiceImpl implements IAccumulationFundQueryS
 	 * @param domain 本地存储的公积金账户信息
 	 * @return
 	 */
-	private AccumulationFundModel buildGatherRequestParam(Map<String,Object> retdata,AccumulationAccount account){/*
+	private AccumulationFundModel buildGatherRequestParam(AccumulationAccount account){
 		AccumulationFundModel model = new AccumulationFundModel();
-		model.setName(domain.getRealName());
-//		model.set
-		return null;
-	*/
-		return null;}
+		model.setData((Map<String,String>)JsonUtil.buildNonNullBinder().getJsonToMap(account.getDatas(), String.class, String.class));
+		model.setTabs(JsonUtil.buildNonNullBinder().getJsonToObject(account.getTabs(), AccumulationFundTabs.class));
+		model.setPassword(account.getAccountPassword());
+		return model;
+	}
 
 	/**
 	 * 根据发出采集请求获取的request_id构建正式获取结果的参数

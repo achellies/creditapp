@@ -527,3 +527,30 @@ div.fixed-bottom-no-input {
         }
     }
 }
+
+.delete_session {
+    background-color: #ff5e5e;
+    color: #fff;
+    -webkit-box-align: center;
+    display: -webkit-box;
+    padding-left: 15px;
+    height: 100%;
+    &.ng-enter {
+        animation: slideInRight 0.5s;
+    }
+    &.ng-leave {
+        animation: slideOutRight 0.5s;
+    }
+}
+
+.no-item-area{
+    img{
+        width:65px;
+        height:53px;
+    }
+    h2{
+        color:#c0c0c0;
+        letter-spacing:-0.41px;
+        text-align:center;
+    }
+}

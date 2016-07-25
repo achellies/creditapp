@@ -13,5 +13,9 @@ public interface IAccumulationService {
 	
 	public AccumulationAccount queryAccumulationAccountById(Integer id);
 	
+	public void deleteAccumulationAccount(Integer accumulationAccountId,Integer userId) throws CreditAppException;
+	
+	public List<AccumulationAccount> queryAccountByUserId(Integer userId) throws CreditAppException;
+	
 
 }

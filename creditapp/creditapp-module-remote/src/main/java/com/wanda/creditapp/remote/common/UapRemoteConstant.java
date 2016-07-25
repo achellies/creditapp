@@ -18,13 +18,8 @@ public enum UapRemoteConstant {
 	// 通过原登录密码,重置登录密码
 	public static final String API_PATH_RESETPWDBYPASSWORD = "/credential/pwd/reset/by_oldpwd";
 
-	//车辆违章信息查询
-	public static final String API_PATH_QUERY_CAR_ILLEGAL = "";
+	//实名认证(身份证+姓名)
+	public static final String API_PATH_CERTIFICATION_REQ = "/identify/idcard/verification/submit";
 	
-	// 新增车辆
-	public static final String API_PATH_SAVE_CAR_INFO = "";
-	
-	//车辆信息查询
-	public static final String API_PATH_QUERY_CAR_INFO = "";
 	
 }

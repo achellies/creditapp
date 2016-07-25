@@ -1,19 +1,36 @@
 <div>
-    <section class="mg-top10 ui-border-tb icon_detail_area" ng-repeat="car_item in ar_car_item">
-        <div class="info_title_head ui-flex ui-border-b ui-flex-align-center">
-            <img src="../../imgs/trafficPeccancy/car.png" />
-            <h2>{{car_item.name}}</h2>
-            <i class="ui-icon-arrow ui-flex-pack-end" ng-click="showDetail(car_item.id)"></i>
-        </div>
-        <div class="info_title_content title_icon_area">
-            <ul>
-                <li class="ui-col ui-col-33 title_icon" ng-repeat="(info_k, info_v) in car_item.info">
-                    <div>{{info_v}}</div>
-                    <i>{{ar_item[info_k]}}</i>
-                </li>
-            </ul>
-        </div>
+    <section class="ui-row mg-top10 ui-border-tb icon_detail_area info_area"
+         ng-repeat="car_item in ar_car_item"
+         ng-swipe-right="swipeRight(car_item.id)"
+         ng-swipe-left="swipeLeft(car_item.id)"
+         ng-class="{'follow_delete':showDelete[car_item.id]}">
+        <section class="detail_session ui-col ui-col-100">
+            <div class="info_title_head ui-flex ui-border-b ui-flex-align-center">
+                <img src="../../imgs/trafficPeccancy/car.png" />
+                <h2>{{car_item.name}}</h2>
+                <i class="ui-icon-arrow ui-flex-pack-end" ng-click="showDetail(car_item.id)"></i>
+            </div>
+            <div class="info_title_content title_icon_area">
+                <ul>
+                    <li class="ui-col ui-col-33 title_icon" ng-repeat="(info_k, info_v) in car_item.info">
+                        <div>{{info_v}}</div>
+                        <i>{{ar_item[info_k]}}</i>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="delete_session ui-col ui-col-20"
+                 ng-show="showDelete[car_item.id]"
+             ng-click="deleteCar(car_item.id)">
+            删除
+        </section>
         <div class="clear"></div>
     </section>
-    <button class="ui-row ui-btn-lg ui-btn-primary mg-top30" ng-click="addCar()">添加车辆</button>
+    <section class="no-item-area" ng-if="ar_car_item.length == 0">
+        <img src="../../imgs/trafficPeccancy/no_car.png">
+        <h2>暂无车辆信息</h2>
+    </section>
+    <button class="ui-row ui-btn-lg ui-btn-primary mg-top30"
+            ng-show="!hasDelete"
+            ng-click="addCar()">添加车辆</button>
 </div>

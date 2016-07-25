@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanda.creditapp.remote.dao.CarInfoMapper">
+  <resultMap id="BaseResultMap" type="com.wanda.creditapp.remote.domain.CarInfoDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="license_no" jdbcType="VARCHAR" property="licenseNo" />
+    <result column="car_type" jdbcType="INTEGER" property="carType" />
+    <result column="car_code" jdbcType="VARCHAR" property="carCode" />
+    <result column="vin_17" jdbcType="VARCHAR" property="vin_17" />
+    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="car_status" jdbcType="INTEGER" property="carStatus" />
+    <result column="data_status" jdbcType="INTEGER" property="dataStatus" />
+    <result column="data_version" jdbcType="INTEGER" property="dataVersion" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="car_detail" jdbcType="LONGVARCHAR" property="carDetail" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_car_infos
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wanda.creditapp.remote.domain.CarInfoDomain">
+    insert into app_car_infos (id, name, card_no, 
+      license_no, car_type, car_code, 
+      vin_17, register_time, car_status, 
+      data_status, data_version, created_at, 
+      updated_at, create_user, update_user, 
+      car_detail)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, 
+      #{licenseNo,jdbcType=VARCHAR}, #{carType,jdbcType=INTEGER}, #{carCode,jdbcType=VARCHAR}, 
+      #{vin_17,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{carStatus,jdbcType=INTEGER}, 
+      #{dataStatus,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{carDetail,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.remote.domain.CarInfoDomain">
+    update app_car_infos
+    set name = #{name,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      license_no = #{licenseNo,jdbcType=VARCHAR},
+      car_type = #{carType,jdbcType=INTEGER},
+      car_code = #{carCode,jdbcType=VARCHAR},
+      vin_17 = #{vin_17,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      car_status = #{carStatus,jdbcType=INTEGER},
+      data_status = #{dataStatus,jdbcType=INTEGER},
+      data_version = #{dataVersion,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      car_detail = #{carDetail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, card_no, license_no, car_type, car_code, vin_17, register_time, 
+    car_status, data_status, data_version, created_at, updated_at, create_user, update_user, 
+    car_detail
+    from app_car_infos
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, card_no, license_no, car_type, car_code, vin_17, register_time, 
+    car_status, data_status, data_version, created_at, updated_at, create_user, update_user, 
+    car_detail
+    from app_car_infos
+  </select>
+ 
+  <!--新增车辆-->
+  <insert id="saveCarInfo" parameterType="com.wanda.creditapp.remote.domain.CarInfoDomain">
+    insert into app_car_infos (id, name, card_no, 
+      license_no, car_type, car_code, 
+      vin_17, register_time, car_status, create_user, update_user,
+      car_detail)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, 
+      #{licenseNo,jdbcType=VARCHAR}, #{carType,jdbcType=INTEGER}, #{carCode,jdbcType=VARCHAR}, 
+      #{vin_17,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{carStatus,jdbcType=INTEGER},
+  	  #{updateUser,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR},
+  	  #{carDetail,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  
+  
+</mapper>

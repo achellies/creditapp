@@ -6,6 +6,17 @@ import com.wanda.creditapp.user.domain.DissentDomain;
 
 public interface DissentMapper {
 
+	int deleteByPrimaryKey(Integer id);
+
+    int insert(DissentDomain record);
+
+    DissentDomain selectByPrimaryKey(Integer id);
+
+    List<DissentDomain> selectAll();
+
+    int updateByPrimaryKey(DissentDomain record);
+	
+	
 	void saveDissent(DissentDomain dissentDomain);
 
 	List<DissentDomain> queryAllCarDissent();

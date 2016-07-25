@@ -12,18 +12,17 @@ import com.wanda.creditapp.user.service.IUserService;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
-	
+
 	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
-	
+
 	@Resource
 	private UserDomainMapper userDomainMapper;
 	
-	
-	//用户注册
+	// 用户注册
 	public int insert(UserDomain record) {
 		int result = -1;
 		try {
-			result = userDomainMapper.insert(record);
+			result = userDomainMapper.saveUser(record);
 		} catch (Exception e) {
 			logger.error("UserServiceImpl.insert---用户注册时异常", e);
 			throw new CreditAppException("UserServiceImpl.insert---用户注册时异常", e);
@@ -31,14 +30,13 @@ public class UserServiceImpl implements IUserService {
 		return result;
 	}
 
-	
-	//判断手机号是否被注册
+	// 判断手机号是否被注册
 	public Boolean queryUserPhoneByPhone(String userPhone) {
 		Boolean flag = false;
 		try {
 			UserDomain u = this.userDomainMapper.queryUserPhoneByPhone(userPhone);
-			if(u != null){
-				//存在该号
+			if (u != null) {
+				// 存在该号
 				flag = true;
 			}
 		} catch (Exception e) {
@@ -48,8 +46,7 @@ public class UserServiceImpl implements IUserService {
 		return flag;
 	}
 
-	
-	//用户登录
+	// 用户登录
 	public UserDomain queryUserByPhoneAndPwd(UserDomain userDomain) {
 		UserDomain u = null;
 		try {
@@ -60,13 +57,12 @@ public class UserServiceImpl implements IUserService {
 		}
 		return u;
 	}
-	
-	
-	//根据手机号,重置密码
+
+	// 根据手机号,重置密码
 	public int updatePwdByPhone(UserDomain userDomain) {
 		int result = -1;
 		try {
-			result = this.userDomainMapper.updateByPrimaryKey(userDomain);
+			result = this.userDomainMapper.updatePWdByPhone(userDomain);
 		} catch (Exception e) {
 			logger.error("UserServiceImpl.updatePwdByPhone---根据手机号重置密码异常", e);
 			throw new CreditAppException("UserServiceImpl.updatePwdByPhone---根据手机号重置密码异常", e);
@@ -74,12 +70,11 @@ public class UserServiceImpl implements IUserService {
 		return result;
 	}
 
-	
-	//根据原密码,重置密码
+	// 根据原密码,重置密码
 	public int updateUserPwdByPwd(UserDomain userDomain) {
 		int result = -1;
 		try {
-			result = this.userDomainMapper.updateByPrimaryKey(userDomain);
+			result = this.userDomainMapper.updatePwdByOldPwd(userDomain);
 		} catch (Exception e) {
 			logger.error("UserServiceImpl.updateUserPwdByPwd---根据原密码重置密码异常", e);
 			throw new CreditAppException("UserServiceImpl.updateUserPwdByPwd---根据原密码重置密码异常", e);
@@ -87,8 +82,7 @@ public class UserServiceImpl implements IUserService {
 		return result;
 	}
 
-
-	//判断登录密码是否正确
+	// 判断登录密码是否正确
 	public String queryPwdByPhone(String userPhone) {
 		String result = "";
 		try {
@@ -99,9 +93,8 @@ public class UserServiceImpl implements IUserService {
 		}
 		return result;
 	}
-	
-	
-	//通过pwid,判断原密码是否正确
+
+	// 通过pwid,判断原密码是否正确
 	public String queryOldPwdByPwid(String uapPwid) {
 		String result = "";
 		try {
@@ -112,5 +105,17 @@ public class UserServiceImpl implements IUserService {
 		}
 		return result;
 	}
-	
+
+	@Override
+	public int updateCertification(UserDomain userDomain) {
+		int result = -1;
+		try {
+			result = userDomainMapper.updateCertification(userDomain);
+		} catch (Exception e) {
+			logger.error("UserServiceImpl.updateCertification--更新实名信息异常异常", e);
+			throw new CreditAppException("UserServiceImpl.queryOldPwdByPwid---更新实名信息异常异常", e);
+		}
+		return result;
+	}
+
 }

@@ -48,6 +48,7 @@ public class VerifyCodeController extends BaseController {
 	@RequestMapping(value="/greenLight/verifycode",method=RequestMethod.POST)
 	@ResponseBody
 	public DataResponse verifyCode(@RequestBody VerifyCodeModel verifyCodeModel,HttpServletRequest request, HttpServletResponse response) {
+		
 		VerifyConfig verifyConfig = verifyConfigService.getByVerifyType(Integer.valueOf(verifyCodeModel.getType()));
 		if (null == verifyConfig) {
 			logger.error("VerifyCodeController.verifyCode-没有对应的配置信息");

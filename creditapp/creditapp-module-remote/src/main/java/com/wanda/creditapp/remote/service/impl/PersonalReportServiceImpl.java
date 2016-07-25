@@ -74,7 +74,7 @@ public class PersonalReportServiceImpl implements IPersonalReportService{
 	
 	private Map<String,IProductService> productIdServiceMap;
 	
-	private Integer flag = 0;
+	private static Integer flag = 0;
 
 	@Override
 	public List<ProductResponseModel> queryPersonalReport(PersonalReportModel model) throws CreditAppException {

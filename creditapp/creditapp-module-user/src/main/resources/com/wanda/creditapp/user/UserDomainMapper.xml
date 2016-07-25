@@ -7,15 +7,11 @@
 		<result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
 		<result column="user_password" property="userPassword" jdbcType="VARCHAR" />
-		<result column="user_relname" property="userRelname" jdbcType="VARCHAR" />
-		<result column="user_gender" property="userGender" jdbcType="INTEGER" />
-		<result column="user_id_number" property="userIdNumber" jdbcType="VARCHAR" />
-		<result column="user_type" property="userType" jdbcType="INTEGER" />
 		<result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+		<result column="user_gender" property="userGender" jdbcType="INTEGER" />
 		<result column="user_email" property="userEmail" jdbcType="VARCHAR" />
 		<result column="user_imgurl" property="userImgurl" jdbcType="VARCHAR" />
 		<result column="user_imgpath" property="userImgpath" jdbcType="VARCHAR" />
-		<result column="user_message" property="userMessage" jdbcType="VARCHAR" />
 		<result column="data_status" property="dataStatus" jdbcType="INTEGER" />
 		<result column="data_version" property="dataVersion" jdbcType="INTEGER" />
 		<result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
@@ -29,19 +25,17 @@
 	</delete>
 	<insert id="insert" parameterType="com.wanda.creditapp.user.domain.UserDomain">
 		insert into app_users (id, uap_pwid, user_phone,
-		user_name, user_password, user_relname,
-		user_gender, user_id_number, user_type,
-		user_nickname, user_email, user_imgurl,
-		user_imgpath, user_message, data_status,
-		data_version, created_at, updated_at,
-		create_user, update_user)
+		user_name, user_password, user_nickname,
+		user_gender, user_email, user_imgurl,
+		user_imgpath, data_status, data_version,
+		created_at, updated_at, create_user,
+		update_user)
 		values (#{id,jdbcType=INTEGER}, #{uapPwid,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR},
-		#{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userRelname,jdbcType=VARCHAR},
-		#{userGender,jdbcType=INTEGER}, #{userIdNumber,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER},
-		#{userNickname,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{userImgurl,jdbcType=VARCHAR},
-		#{userImgpath,jdbcType=VARCHAR}, #{userMessage,jdbcType=VARCHAR}, #{dataStatus,jdbcType=INTEGER},
-		#{dataVersion,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP},
-		#{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR})
+		#{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR},
+		#{userGender,jdbcType=INTEGER}, #{userEmail,jdbcType=VARCHAR}, #{userImgurl,jdbcType=VARCHAR},
+		#{userImgpath,jdbcType=VARCHAR}, #{dataStatus,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER},
+		#{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+		#{updateUser,jdbcType=VARCHAR})
 	</insert>
 	<update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.user.domain.UserDomain">
 		update app_users
@@ -49,15 +43,11 @@
 		user_phone = #{userPhone,jdbcType=VARCHAR},
 		user_name = #{userName,jdbcType=VARCHAR},
 		user_password = #{userPassword,jdbcType=VARCHAR},
-		user_relname = #{userRelname,jdbcType=VARCHAR},
-		user_gender = #{userGender,jdbcType=INTEGER},
-		user_id_number = #{userIdNumber,jdbcType=VARCHAR},
-		user_type = #{userType,jdbcType=INTEGER},
 		user_nickname = #{userNickname,jdbcType=VARCHAR},
+		user_gender = #{userGender,jdbcType=INTEGER},
 		user_email = #{userEmail,jdbcType=VARCHAR},
 		user_imgurl = #{userImgurl,jdbcType=VARCHAR},
 		user_imgpath = #{userImgpath,jdbcType=VARCHAR},
-		user_message = #{userMessage,jdbcType=VARCHAR},
 		data_status = #{dataStatus,jdbcType=INTEGER},
 		data_version = #{dataVersion,jdbcType=INTEGER},
 		created_at = #{createdAt,jdbcType=TIMESTAMP},
@@ -67,23 +57,39 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-		select id, uap_pwid, user_phone, user_name, user_password, user_relname, user_gender,
-		user_id_number, user_type, user_nickname, user_email, user_imgurl, user_imgpath,
-		user_message, data_status, data_version, created_at, updated_at, create_user, update_user
+		select id, uap_pwid, user_phone, user_name, user_password, user_nickname, user_gender,
+		user_email, user_imgurl, user_imgpath, data_status, data_version, created_at, updated_at,
+		create_user, update_user
 		from app_users
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap">
-		select id, uap_pwid, user_phone, user_name, user_password, user_relname, user_gender,
-		user_id_number, user_type, user_nickname, user_email, user_imgurl, user_imgpath,
-		user_message, data_status, data_version, created_at, updated_at, create_user, update_user
+		select id, uap_pwid, user_phone, user_name, user_password, user_nickname, user_gender,
+		user_email, user_imgurl, user_imgpath, data_status, data_version, created_at, updated_at,
+		create_user, update_user
 		from app_users
 	</select>
+
+
+	<!--用户注册 -->
+	<insert id="saveUser" parameterType="com.wanda.creditapp.user.domain.UserDomain">
+		insert into app_users (id, uap_pwid, user_phone,
+		user_name, user_password, user_nickname,
+		user_gender, user_email, user_imgurl,
+		user_imgpath, created_at, updated_at, create_user,
+		update_user)
+		values (#{id,jdbcType=INTEGER}, #{uapPwid,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR},
+		#{userGender,jdbcType=INTEGER}, #{userEmail,jdbcType=VARCHAR}, #{userImgurl,jdbcType=VARCHAR},
+		#{userImgpath,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+		#{updateUser,jdbcType=VARCHAR})
+	</insert>
+
 	<!--用户登录 -->
 	<select id="queryUserByPhoneAndPwd" resultMap="BaseResultMap" parameterType="com.wanda.creditapp.user.domain.UserDomain">
-		select id, uap_pwid, user_phone, user_name, user_password, user_relname, user_gender,
-				user_id_number, user_type, user_nickname, user_email, user_imgurl, user_imgpath,
-				user_message, data_status, data_version, create_user, update_user
+		select id, uap_pwid, user_phone, user_name, user_password, user_nickname, user_gender,
+		user_email, user_imgurl, user_imgpath, data_status, data_version, created_at, updated_at,
+		create_user, update_user
 		from app_users
 		where user_phone = #{userPhone,jdbcType=VARCHAR}
 		and user_password = #{userPassword,jdbcType=VARCHAR}
@@ -97,16 +103,63 @@
 	</select>
 
 	<!--判断登录密码是否正确 -->
-	<select id="queryPwdByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+	<select id="queryPwdByPhone" resultType="java.lang.String" parameterType="java.lang.String">
 		select user_password
 		from app_users
 		where user_phone = #{userPhone,jdbcType=VARCHAR}
 	</select>
 
 	<!--通过pwid,判断原密码是否正确 -->
-	<select id="queryOldPwdByPwid" resultMap="BaseResultMap" parameterType="java.lang.String">
+	<select id="queryOldPwdByPwid" resultType="java.lang.String" parameterType="java.lang.String">
 		select user_password
 		from app_users
 		where uap_pwid = #{uapPwid,jdbcType=VARCHAR}
 	</select>
+
+	<!--根据短信验证码,修改密码 -->
+	<update id="updatePWdByPhone" parameterType="com.wanda.creditapp.user.domain.UserDomain">
+		update app_users
+		set
+		user_password = #{userPassword,jdbcType=VARCHAR},
+		updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+		update_user = #{updateUser,jdbcType=VARCHAR}
+		where
+		user_phone = #{userPhone,jdbcType=VARCHAR}
+	</update>
+
+	<!--根据原密码,修改密码 -->
+	<update id="updatePwdByOldPwd" parameterType="com.wanda.creditapp.user.domain.UserDomain">
+		update app_users
+		set
+		user_password = #{userPassword,jdbcType=VARCHAR},
+		updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+		update_user = #{updateUser,jdbcType=VARCHAR}
+		where
+		uap_pwid = #{uapPwid,jdbcType=VARCHAR}
+	</update>
+
+
+	<!--更新实名认证信息 -->
+	<update id="updateCertification" parameterType="com.wanda.creditapp.user.domain.UserDomain">
+		update app_users
+
+		set user_relname = #{userRelname,jdbcType=VARCHAR},
+
+		user_id_number = #{userIdNumber,jdbcType=VARCHAR},
+
+		data_status = #{dataStatus,jdbcType=INTEGER}
+
+		where uap_pwid = #{uapPwid,jdbcType=VARCHAR}
+	</update>
+
+	<!--根据pwid获取用户 -->
+	<select id="queryUserByUapPwid" resultMap="BaseResultMap">
+		select id, uap_pwid, user_phone, user_name, user_password, user_relname, user_gender,
+		user_id_number, user_type, user_nickname, user_email, user_imgurl, user_imgpath,
+		user_message, data_status, data_version, create_user, update_user
+		from app_users
+		where uap_pwid = #{0,jdbcType=VARCHAR}
+	</select>
+
+
 </mapper>

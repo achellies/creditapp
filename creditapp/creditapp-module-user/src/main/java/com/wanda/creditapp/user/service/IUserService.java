@@ -1,7 +1,6 @@
 package com.wanda.creditapp.user.service;
 
 import com.wanda.creditapp.user.domain.UserDomain;
-
 public interface IUserService {
 	
 	//注册
@@ -25,6 +24,7 @@ public interface IUserService {
 	//通过pwid判断密码是否正确
 	public String queryOldPwdByPwid(String uapPwid);
 
-
+	//根据短信验证码,修改密码
+	public int updateCertification(UserDomain userDomain);
 	
 }

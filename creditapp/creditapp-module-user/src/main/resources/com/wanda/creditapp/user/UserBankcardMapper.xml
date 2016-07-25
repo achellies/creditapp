@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanda.creditapp.user.dao.UserBankcardMapper" >
+  <resultMap id="BaseResultMap" type="com.wanda.creditapp.user.domain.UserBankcard" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="uap_pwid" property="uapPwid" jdbcType="VARCHAR" />
+    <result column="card_no" property="cardNo" jdbcType="VARCHAR" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="card_type" property="cardType" jdbcType="INTEGER" />
+    <result column="bank_mobile_num" property="bankMobileNum" jdbcType="VARCHAR" />
+    <result column="issuing_bank_code" property="issuingBankCode" jdbcType="VARCHAR" />
+    <result column="issuing_bank_name" property="issuingBankName" jdbcType="VARCHAR" />
+    <result column="valid_from" property="validFrom" jdbcType="VARCHAR" />
+    <result column="valid_thru" property="validThru" jdbcType="VARCHAR" />
+    <result column="check_code" property="checkCode" jdbcType="VARCHAR" />
+    <result column="external_number" property="externalNumber" jdbcType="VARCHAR" />
+    <result column="data_status" property="dataStatus" jdbcType="INTEGER" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from app_users_bankcards
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wanda.creditapp.user.domain.UserBankcard" >
+    insert into app_users_bankcards (id, user_id, uap_pwid, 
+      card_no, owner_name, card_type, 
+      bank_mobile_num, issuing_bank_code, issuing_bank_name, 
+      valid_from, valid_thru, check_code, 
+      external_number, data_status, data_version, 
+      created_at, updated_at, create_user, 
+      update_user)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{uapPwid,jdbcType=VARCHAR}, 
+      #{cardNo,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, #{cardType,jdbcType=INTEGER}, 
+      #{bankMobileNum,jdbcType=VARCHAR}, #{issuingBankCode,jdbcType=VARCHAR}, #{issuingBankName,jdbcType=VARCHAR}, 
+      #{validFrom,jdbcType=VARCHAR}, #{validThru,jdbcType=VARCHAR}, #{checkCode,jdbcType=VARCHAR}, 
+      #{externalNumber,jdbcType=VARCHAR}, #{dataStatus,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wanda.creditapp.user.domain.UserBankcard" >
+    update app_users_bankcards
+    set user_id = #{userId,jdbcType=INTEGER},
+      uap_pwid = #{uapPwid,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      card_type = #{cardType,jdbcType=INTEGER},
+      bank_mobile_num = #{bankMobileNum,jdbcType=VARCHAR},
+      issuing_bank_code = #{issuingBankCode,jdbcType=VARCHAR},
+      issuing_bank_name = #{issuingBankName,jdbcType=VARCHAR},
+      valid_from = #{validFrom,jdbcType=VARCHAR},
+      valid_thru = #{validThru,jdbcType=VARCHAR},
+      check_code = #{checkCode,jdbcType=VARCHAR},
+      external_number = #{externalNumber,jdbcType=VARCHAR},
+      data_status = #{dataStatus,jdbcType=INTEGER},
+      data_version = #{dataVersion,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, user_id, uap_pwid, card_no, owner_name, card_type, bank_mobile_num, issuing_bank_code, 
+    issuing_bank_name, valid_from, valid_thru, check_code, external_number, data_status, 
+    data_version, created_at, updated_at, create_user, update_user
+    from app_users_bankcards
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, user_id, uap_pwid, card_no, owner_name, card_type, bank_mobile_num, issuing_bank_code, 
+    issuing_bank_name, valid_from, valid_thru, check_code, external_number, data_status, 
+    data_version, created_at, updated_at, create_user, update_user
+    from app_users_bankcards
+  </select>
+</mapper>

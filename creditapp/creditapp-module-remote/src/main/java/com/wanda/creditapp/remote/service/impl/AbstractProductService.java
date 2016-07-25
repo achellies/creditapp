@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+
 import com.wanda.creditapp.common.constant.ExceptionConstant;
 import com.wanda.creditapp.common.constant.ProductConstant;
 import com.wanda.creditapp.common.exception.CreditAppException;
@@ -13,7 +14,6 @@ import com.wanda.creditapp.common.util.JsonUtil;
 import com.wanda.creditapp.common.util.StringUtils;
 import com.wanda.creditapp.remote.service.ICallCreditRemoteService;
 import com.wanda.creditapp.remote.service.IProductService;
-import com.wanda.creditapp.remote.util.ValidateUtil;
 
 public abstract class AbstractProductService implements IProductService{
 	
@@ -46,9 +46,21 @@ public abstract class AbstractProductService implements IProductService{
 	 */
 	protected abstract String validateBussinessParam(Map<String,String> datas);
 	
+	/**
+	 * 系统参数,以后接入业务网关会用到
+	 */
 	protected abstract Map<String,String> buildSystemParam();
 	
+	/**
+	 * 根据传入的ProductModel构建业务参数,以Map<String,String>返回
+	 * @param productModel
+	 * @return
+	 */
 	protected abstract Map<String,String> buildBussinessParam(ProductModel productModel);
 	
+	/**
+	 * 注入调用远程产品的service
+	 * @return
+	 */
 	protected abstract ICallCreditRemoteService getCallCreditRemoteService();
 }
